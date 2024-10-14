@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Basic Page Needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Manager Football</title>
+
+    <!-- Mobile Specific Metas
+    ================================================== -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Event and Conference Html5 Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="author" content="Themefisher">
+    <meta name="generator" content="Themefisher Eventre HTML Template v1.0">
+
+    <!-- theme meta -->
+    <meta name="theme-name" content="eventre" />
+
+    <!-- PLUGINS CSS STYLE -->
+    <!-- Bootstrap -->
+    <link href="plugins/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="plugins/font-awsome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="plugins/magnific-popup/magnific-popup.css" rel="stylesheet">
+    <!-- Slick Carousel -->
+    <link href="plugins/slick/slick.css" rel="stylesheet">
+    <link href="plugins/slick/slick-theme.css" rel="stylesheet">
+    <!-- CUSTOM CSS -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- FAVICON -->
+    <link href="images/favicon.png" rel="shortcut icon">
+
+    <style>
+        .schedule .schedule-contents .schedule-item li.schedule-details .block div span.name {
+            margin: 0 5px;
+        }
+
+        .schedule .schedule-contents .schedule-item li.schedule-details .block div span.time {
+            margin: 0 5px;
+        }
+
+        .schedule .schedule-contents {
+            margin: 0 0 80px 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body class="body-wrapper">
+    <!--=============== Navigation Section ===============-->
+    <nav class="navbar main-nav border-less fixed-top navbar-expand-lg p-0">
+        <div class="container-fluid p-0">
+            <!-- logo -->
+            <a class="navbar-brand" href="index.html">
+                <img src="images/logo_final.png" alt="logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home
+                            <span>/</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="fixtures.html">Fixtures
+                            <span>/</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="results.html">Results<span>/</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="tables.html">Tables<span>/</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="club.html">Club<span>/</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="stats.html">Stats<span>/</span></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#!" data-toggle="dropdown">News <i
+                                class="fa fa-angle-down"></i><span>/</span>
+                        </a>
+                        <!-- Dropdown list -->
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="injury-news.html">Injury news</a></li>
+                            <li><a class="dropdown-item" href="transfer.html">Transfer</a></li>
+                            <li><a class="dropdown-item" href="news.html">News</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <a href="sign_in.html" class="ticket">
+                    <span>Login</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <!--==========  End of Navigation Section  ==========-->
+
+    <!-- Banner Section -->
+    <div class="banner">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="logo-section d-flex align-items-center">
+                        <img src="club_logo.png" alt="Club Logo" class="club-logo">
+                        <div class="club-info ms-3">
+                            <h1 class="club-name">Chelsea</h1>
+                            <p class="club-details">Stamford Bridge, London</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Player List Section -->
+    <div class="container mt-5 list-player">
+
+        <!-- Goalkeepers -->
+        <h2>Goalkeepers</h2>
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 single-player">
+                <a href="player_details.html" class="player-card">
+                    <div class="card">
+                        <img src="player1.jpg" alt="Player 1" class="player-img">
+                        <div class="card-body">
+                            <h5 class="player-name">Marcus Bettinelli</h5>
+                            <p class="player-details">#13 - Goalkeeper</p>
+                            <p class="player-country">
+                                <img src="england_flag.png" alt="England" class="flag-icon"> England
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 single-player">
+                <a href="player_details.html" class="player-card">
+                    <div class="card">
+                        <img src="player2.jpg" alt="Player 2" class="player-img">
+                        <div class="card-body">
+                            <h5 class="player-name">Robert Sánchez</h5>
+                            <p class="player-details">#1 - Goalkeeper</p>
+                            <p class="player-country">
+                                <img src="spain_flag.png" alt="Spain" class="flag-icon"> Spain
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 single-player">
+                <a href="player_details.html" class="player-card">
+                    <div class="card">
+                        <img src="player3.jpg" alt="Player 3" class="player-img">
+                        <div class="card-body">
+                            <h5 class="player-name">Lucas Bergström</h5>
+                            <p class="player-details">#47 - Goalkeeper</p>
+                            <p class="player-country">
+                                <img src="finland_flag.png" alt="Finland" class="flag-icon"> Finland
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Defenders -->
+        <h2 class="mt-5">Defenders</h2>
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 single-player">
+                <a href="player_details.html" class="player-card">
+                    <div class="card">
+                        <img src="player4.jpg" alt="Player 4" class="player-img">
+                        <div class="card-body">
+                            <h5 class="player-name">Thiago Silva</h5>
+                            <p class="player-details">#6 - Defender</p>
+                            <p class="player-country">
+                                <img src="brazil_flag.png" alt="Brazil" class="flag-icon"> Brazil
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 single-player">
+                <a href="player_details.html" class="player-card">
+                    <div class="card">
+                        <img src="player5.jpg" alt="Player 5" class="player-img">
+                        <div class="card-body">
+                            <h5 class="player-name">Reece James</h5>
+                            <p class="player-details">#24 - Defender</p>
+                            <p class="player-country">
+                                <img src="england_flag.png" alt="England" class="flag-icon"> England
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 single-player">
+                <a href="player_details.html" class="player-card">
+                    <div class="card">
+                        <img src="player6.jpg" alt="Player 6" class="player-img">
+                        <div class="card-body">
+                            <h5 class="player-name">Ben Chilwell</h5>
+                            <p class="player-details">#21 - Defender</p>
+                            <p class="player-country">
+                                <img src="england_flag.png" alt="England" class="flag-icon"> England
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 single-player">
+                <a href="player_details.html" class="player-card">
+                    <div class="card">
+                        <img src="player7.jpg" alt="Player 7" class="player-img">
+                        <div class="card-body">
+                            <h5 class="player-name">Wesley Fofana</h5>
+                            <p class="player-details">#33 - Defender</p>
+                            <p class="player-country">
+                                <img src="france_flag.png" alt="France" class="flag-icon"> France
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 single-player">
+                <a href="player_details.html" class="player-card">
+                    <div class="card">
+                        <img src="player8.jpg" alt="Player 8" class="player-img">
+                        <div class="card-body">
+                            <h5 class="player-name">Marc Cucurella</h5>
+                            <p class="player-details">#3 - Defender</p>
+                            <p class="player-country">
+                                <img src="spain_flag.png" alt="Spain" class="flag-icon"> Spain
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Midfielders -->
+        <h2 class="mt-5">Midfielders</h2>
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 single-player">
+                <a href="player_details.html" class="player-card">
+                    <div class="card">
+                        <img src="player9.jpg" alt="Player 9" class="player-img">
+                        <div class="card-body">
+                            <h5 class="player-name">Enzo Fernández</h5>
+                            <p class="player-details">#8 - Midfielder</p>
+                            <p class="player-country">
+                                <img src="argentina_flag.png" alt="Argentina" class="flag-icon"> Argentina
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 single-player">
+                <a href="player_details.html" class="player-card">
+                    <div class="card">
+                        <img src="player10.jpg" alt="Player 10" class="player-img">
+                        <div class="card-body">
+                            <h5 class="player-name">Conor Gallagher</h5>
+                            <p class="player-details">#23 - Midfielder</p>
+                            <p class="player-country">
+                                <img src="england_flag.png" alt="England" class="flag-icon"> England
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 single-player">
+                <a href="player_details.html" class="player-card">
+                    <div class="card">
+                        <img src="player11.jpg" alt="Player 11" class="player-img">
+                        <div class="card-body">
+                            <h5 class="player-name">Moises Caicedo</h5>
+                            <p class="player-details">#25 - Midfielder</p>
+                            <p class="player-country">
+                                <img src="ecuador_flag.png" alt="Ecuador" class="flag-icon"> Ecuador
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 single-player">
+                <a href="player_details.html" class="player-card">
+                    <div class="card">
+                        <img src="player12.jpg" alt="Player 12" class="player-img">
+                        <div class="card-body">
+                            <h5 class="player-name">Carney Chukwuemeka</h5>
+                            <p class="player-details">#17 - Midfielder</p>
+                            <p class="player-country">
+                                <img src="england_flag.png" alt="England" class="flag-icon"> England
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Forwards -->
+        <h2 class="mt-5">Forwards</h2>
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 single-player">
+                <a href="player_details.html" class="player-card">
+                    <div class="card">
+                        <img src="player13.jpg" alt="Player 13" class="player-img">
+                        <div class="card-body">
+                            <h5 class="player-name">Raheem Sterling</h5>
+                            <p class="player-details">#7 - Forward</p>
+                            <p class="player-country">
+                                <img src="england_flag.png" alt="England" class="flag-icon"> England
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 single-player">
+                <a href="player_details.html" class="player-card">
+                    <div class="card">
+                        <img src="player14.jpg" alt="Player 14" class="player-img">
+                        <div class="card-body">
+                            <h5 class="player-name">Nicolas Jackson</h5>
+                            <p class="player-details">#15 - Forward</p>
+                            <p class="player-country">
+                                <img src="senegal_flag.png" alt="Senegal" class="flag-icon"> Senegal
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 single-player">
+                <a href="player_details.html" class="player-card">
+                    <div class="card">
+                        <img src="player15.jpg" alt="Player 15" class="player-img">
+                        <div class="card-body">
+                            <h5 class="player-name">Armando Broja</h5>
+                            <p class="player-details">#18 - Forward</p>
+                            <p class="player-country">
+                                <img src="albania_flag.png" alt="Albania" class="flag-icon"> Albania
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!--========== Footer ==========-->
+    <footer class="footer-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="block text-center">
+                        <div class="footer-logo">
+                            <img src="images/logo_preview_rev_1.png" alt="logo" class="img-fluid">
+                        </div>
+                        <ul class="social-links-footer list-inline">
+                            <li class="list-inline-item">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#"><i class="fa fa-instagram"></i></a>
+                            </li>
+                            <!-- <li class="list-inline-item">
+                                <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                            </li> -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPTS -->
+    <!-- jQuey -->
+    <script src="plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="plugins/bootstrap/bootstrap.min.js"></script>
+    <!-- Shuffle -->
+    <script src="plugins/shuffle/shuffle.min.js"></script>
+    <!-- Magnific Popup -->
+    <script src="plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <!-- Slick Carousel -->
+    <script src="plugins/slick/slick.min.js"></script>
+    <!-- SyoTimer -->
+    <script src="plugins/syotimer/jquery.syotimer.min.js"></script>
+    <!-- Custom Script -->
+    <script src="js/script.js"></script>
+</body>
+
+</html>
