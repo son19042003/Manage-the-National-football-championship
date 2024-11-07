@@ -1,6 +1,6 @@
 (function ($) {
   'use strict';
-  
+
   // navbarDropdown
   if ($(window).width() < 992) {
     $('.main-nav [data-toggle="dropdown"]').on('click', function () {
@@ -99,6 +99,14 @@
         }
       });
     }
+  });
+
+  //auto check domestic player
+  $(document).ready(function () {
+    $('#nationality').on('input', function () {
+      const nationality = $(this).val().trim().toLowerCase();
+      $('#domesticPlayer').prop('checked', nationality === 'england');
+    });
   });
 
 })(jQuery);
