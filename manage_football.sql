@@ -24,6 +24,10 @@ CREATE TABLE [dbo].[Club](
 ) ON [PRIMARY]
 
 GO
+ALTER TABLE [dbo].[Club]
+ADD [isActive] BIT NOT NULL DEFAULT 1;
+
+GO
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -59,6 +63,15 @@ GO
 ALTER TABLE [dbo].[Players]
 ALTER COLUMN [clubId] char(10) NOT NULL
 
+ALTER TABLE [dbo].[Players]
+ADD CONSTRAINT FK_Players_Club
+FOREIGN KEY ([clubId])
+REFERENCES [dbo].[Club]([clubId]);
+
+GO
+ALTER TABLE [dbo].[Players]
+ADD [isInClub] BIT NOT NULL DEFAULT 1;
+
 GO
 SET ANSI_NULLS ON
 GO
@@ -84,6 +97,44 @@ CREATE TABLE [dbo].[Matches](
 ) ON [PRIMARY]
 
 GO
+ALTER TABLE [dbo].[Matches]
+DROP COLUMN [timeGoal];
+GO
+ALTER TABLE [dbo].[Matches]
+ADD [timeGoal] varchar(12);
+
+GO
+ALTER TABLE [dbo].[Matches]
+ADD CONSTRAINT FK_Matches_HomeTeam
+FOREIGN KEY ([homeTeam])
+REFERENCES [dbo].[Club]([clubId]);
+
+ALTER TABLE [dbo].[Matches]
+ADD CONSTRAINT FK_Matches_AwayTeam
+FOREIGN KEY ([awayTeam])
+REFERENCES [dbo].[Club]([clubId]);
+
+ALTER TABLE [dbo].[Matches]
+ADD CONSTRAINT FK_Matches_Player
+FOREIGN KEY ([playerId])
+REFERENCES [dbo].[Players]([playerId]);
+
+GO
+ALTER TABLE [dbo].[Matches]
+ADD [typeGoalH] int NULL,
+    [typeGoalA] int NULL;
+
+ALTER TABLE [dbo].[Matches]
+ADD CONSTRAINT FK_Matches_TypeGoal_Home
+FOREIGN KEY ([typeGoalH])
+REFERENCES [dbo].[TypeGoal]([typeGId]);
+
+ALTER TABLE [dbo].[Matches]
+ADD CONSTRAINT FK_Matches_TypeGoal_Away
+FOREIGN KEY ([typeGoalA])
+REFERENCES [dbo].[TypeGoal]([typeGId]);
+
+GO
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -103,6 +154,12 @@ CREATE TABLE [dbo].[Standing](
 	[standingId] ASC
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
+
+GO
+ALTER TABLE [dbo].[Standing]
+ADD CONSTRAINT FK_Standing_Club
+FOREIGN KEY ([clubId])
+REFERENCES [dbo].[Club]([clubId]);
 
 GO
 SET ANSI_NULLS ON
@@ -158,6 +215,16 @@ CREATE TABLE [dbo].[Account](
 ) ON [PRIMARY]
 
 GO
+ALTER TABLE [dbo].[Account]
+ADD [isActive] BIT NOT NULL DEFAULT 1;
+
+GO
+ALTER TABLE [dbo].[Account]
+ADD CONSTRAINT FK_Account_Role
+FOREIGN KEY ([roleId])
+REFERENCES [dbo].[Role]([roleId]);
+
+GO
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -189,6 +256,15 @@ CREATE TABLE [dbo].[News](
 	[newsId] ASC
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
+
+GO
+ALTER TABLE [dbo].[News]
+ADD [typeNewsId] int NOT NULL;
+
+ALTER TABLE [dbo].[News]
+ADD CONSTRAINT FK_News_TypeNews
+FOREIGN KEY ([typeNewsId])
+REFERENCES [dbo].[TypeNews]([typeNewsId]);
 
 GO
 SET ANSI_NULLS ON

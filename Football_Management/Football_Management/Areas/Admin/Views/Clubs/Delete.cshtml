@@ -1,0 +1,101 @@
+﻿@model Football_Management.Areas.Admin.ViewModels.Clubs.DeleteViewModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Home </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item">  <a>Team </a> </li>
+        <li class="breadcrumb-item active" aria-current="page">Information </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item">  <a>Team </a> </li>
+        <li class="breadcrumb-item">
+            <a asp-controller="Clubs" asp-action="Index">Information  </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Delete </li>
+    </ol>
+</nav>
+
+<div class="card card-default">
+    <div class="card-body">
+        <h3 class="text-danger" style="margin-bottom: 10px">Are you sure you want to delete the following club?</h3>
+        <table class="table table-light">
+            <thead>
+                <tr>
+                    <th scope="col">Club's name:'</th>
+                    <th scope="col">@Model.ClubName</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">Club's id:</td>
+                    <td>@Model.ClubId</td>
+                </tr>
+                <tr>
+                    <td scope="row">Short name:</td>
+                    <td>@Model.ShortName</td>
+                </tr>
+                <tr>
+                    <td scope="row">Logo:</td>
+                    <td>
+                        <img src="~/Assets/images/logo/@Model.LogoUrl" alt="Logo" style="height: 60px; width: 60px" />
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="row">Stadium:</td>
+                    <td>@Model.Stadium</td>
+                </tr>
+                <tr>
+                    <td scope="row">Link Facebook:</td>
+                    <td>@Model.LinkFb</td>
+                </tr>
+                <tr>
+                    <td scope="row">Link Instagram:</td>
+                    <td>@Model.LinkIg</td>
+                </tr>
+                <tr>
+                    <td scope="row">Is active?</td>
+                    <td>
+                        @if (Model.IsActive)
+                        {
+                            <span class="badge badge-success">Active</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-warning">Eleminated</span>
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <form style="margin-top: 15px" method="post" asp-controller="Clubs" asp-action="Delete">
+            <input type="hidden" name="id" value="@Model.ClubId" />
+
+            <label class="text-danger" for="ConfirmDelete">Confirm Delete?</label>
+            <div class="form-check d-inline-block mr-3 mb-3">
+                <input class="form-check-input" type="checkbox" id="ConfirmDelete" name="ConfirmDelete" value="true" />
+                <label class="form-check-label" for="ConfirmDelete">Yes, I want to delete this club.</label>
+            </div>
+
+            <div class="form-footer mt-6">
+                <button type="submit" class="mb-1 btn btn-pill btn-danger">Submit</button>
+                <a class="btn btn-light btn-pill" asp-controller="Clubs" asp-action="Index">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,103 @@
+﻿@model Football_Management.Areas.Admin.ViewModels.Clubs.EditViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Home </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item">  <a>Team </a> </li>
+        <li class="breadcrumb-item active" aria-current="page">Information </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item">  <a>Team </a> </li>
+        <li class="breadcrumb-item">
+            <a asp-controller="Clubs" asp-action="Index">Information  </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Edit </li>
+    </ol>
+</nav>
+
+<div class="card card-default">
+    <div class="card-body">
+        <h2>Club: @Model.ClubName</h2>
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="ClubId" />
+            <div class="form-group">
+                <label asp-for="ClubName">Club name</label>
+                <input class="form-control" asp-for="ClubName">
+                <span class="mt-2 d-block" asp-validation-for="ClubName"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShortName">Short name</label>
+                <input class="form-control" asp-for="ShortName">
+                <span class="mt-2 d-block" asp-validation-for="ShortName"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Stadium">Stadium</label>
+                <input class="form-control" asp-for="Stadium">
+                <span class="mt-2 d-block" asp-validation-for="Stadium"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LinkFb">Link Facebook</label>
+                <input class="form-control" asp-for="LinkFb">
+                <span class="mt-2 d-block" asp-validation-for="LinkFb"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LinkIg">Link Instagram</label>
+                <input class="form-control" asp-for="LinkIg">
+                <span class="mt-2 d-block" asp-validation-for="LinkIg"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LogoFile">Upload Logo</label>
+                <input class="form-control" asp-for="LogoFile" type="file" name="LogoFile" accept="image/jpeg, image/png, image/gif">
+                <span class="mt-2 d-block" asp-validation-for="LogoFile"></span>
+            </div>
+            @if (!string.IsNullOrEmpty(Model.LogoUrl))
+            {
+                <div class="form-group">
+                    <p>Current Logo:</p>
+                    <img src="~/Assets/images/logo/@Model.LogoUrl" alt="Logo" width="100px" />
+                </div>
+            }
+            <div class="form-group">
+                <label asp-for="IsActive">Is active?</label>
+                <label asp-for="IsActive" class="switch switch-primary switch-pill form-control-label mr-2">
+                    <input asp-for="IsActive" type="checkbox" class="switch-input form-check-input">
+                    <span asp-validation-for="IsActive" class="switch-label"></span>
+                    <span asp-validation-for="IsActive" class="switch-handle"></span>
+                </label>
+            </div>
+            <div class="form-footer mt-6">
+                <button type="submit" class="btn btn-primary btn-pill">Submit</button>
+                <a class="btn btn-light btn-pill" asp-controller="Clubs" asp-action="Index">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.querySelector("form").addEventListener("submit", function (e) {
+        const fileInput = document.querySelector("input[type='file']");
+        const file = fileInput.files[0];
+        const allowedExtensions = ["image/jpeg", "image/png", "image/gif"];
+
+        if (file && !allowedExtensions.includes(file.type)) {
+            e.preventDefault();
+            alert("Only JPEG, PNG, and GIF files are allowed.");
+        }
+    });
+</script>
