@@ -1,0 +1,89 @@
+﻿@model Football_Management.Areas.Admin.ViewModels.Standing.DetailViewModel
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Home </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item">  <a>Rankings </a> </li>
+        <li class="breadcrumb-item active" aria-current="page">Standing </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item">  <a>Rankings </a> </li>
+        <li class="breadcrumb-item">
+            <a asp-controller="Standing" asp-action="Index">Standing  </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Detail </li>
+    </ol>
+</nav>
+
+<div class="card card-default">
+    <div class="card-body">
+        <table class="table table-light">
+            <thead>
+                <tr>
+                    <th scope="col">Position:</th>
+                    <th scope="col">@Model.Index</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">Club:</td>
+                    <td>
+                        <img src="~/Assets/images/logo/@Model.LogoUrl" alt="Logo" style="height: 60px; width: 60px" />
+                        <span style="margin-left: 10px">@Model.ClubName</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="row">Played:</td>
+                    <td>@Model.Played</td>
+                </tr>
+                <tr>
+                    <td scope="row">Won:</td>
+                    <td>@Model.Won</td>
+                </tr>
+                <tr>
+                    <td scope="row">Drawn:</td>
+                    <td>@Model.Drawn</td>
+                </tr>
+                <tr>
+                    <td scope="row">Lost:</td>
+                    <td>@Model.Lost</td>
+                </tr>
+                <tr>
+                    <td scope="row">Goals for:</td>
+                    <td>@Model.GoalF</td>
+                </tr>
+                <tr>
+                    <td scope="row">Goals against:</td>
+                    <td>@Model.GoalA</td>
+                </tr>
+                <tr>
+                    <td scope="row">Goal difference:</td>
+                    <td>@Model.GoalDifference</td>
+                </tr>
+                <tr>
+                    <td scope="row">Points:</td>
+                    <td>@Model.Points</td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="margin-top: 20px">
+            <a class="btn btn-sm btn-info" asp-action="Index">Back to list</a> |
+            <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@Model.StandingId">Edit</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,186 @@
+﻿@model IEnumerable<Football_Management.ViewModels.Results.ResultsViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+@functions {
+    public static string GetOrdinalSuffix(int day)
+    {
+        if (day % 100 >= 11 && day % 100 <= 13)
+        {
+            return $"{day}th";
+        }
+        else if (day % 10 == 1)
+        {
+            return $"{day}st";
+        }
+        else if (day % 10 == 2)
+        {
+            return $"{day}nd";
+        }
+        else if (day % 10 == 3)
+        {
+            return $"{day}rd";
+        }
+        else
+        {
+            return $"{day}th";
+        }
+    }
+}
+
+<section class="section schedule">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- Section Title -->
+                <div class="section-title white">
+                    <h2><span class="alternate">Results</span></h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="schedule-contents ">
+                    <div class="tab-content" id="pills-tabContent">
+                        <div id="match-list" class="tab-pane fade show active schedule-item">
+                            <ul class="m-0 p-0">
+                                <!-- Match -->
+                                @{
+                                    DateOnly? previousDate = null;
+                                }
+                                @foreach (var match in Model)
+                                {
+                                    @if (previousDate != match.DateStart)
+                                    {
+                                        <h5>
+                                            @GetOrdinalSuffix(@match.DateStart.Day) @match.DateStart.ToString("MMMM", new System.Globalization.CultureInfo("en-US")) @match.DateStart.ToString("yyyy")
+                                        </h5>
+                                    }
+                                    <li class="schedule-details">
+                                        <a href="#" style="text-align: center;">
+                                            <div class="block fixture">
+                                                <!-- home -->
+                                                <div class=" team">
+                                                    <img src="~/Assets/images/logo/@match.LogoHome"
+                                                         alt="home-club" style="width: 40px; height: 40px">
+                                                    <span class="name">@match.HomeTeam</span>
+                                                </div>
+                                                <!-- time -->
+                                                <div class=" ratio">
+                                                    <span class="time">@match.GoalsH - @match.GoalsA</span>
+                                                </div>
+                                                <!-- away -->
+                                                <div class=" team">
+                                                    <span class="name">@match.AwayTeam</span>
+                                                    <img src="~/Assets/images/logo/@match.LogoAway"
+                                                         alt="away-club" style="width: 40px; height: 40px">
+                                                </div>
+                                                <!-- stadium -->
+                                                <div class="stadium">@match.Stadium</div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    previousDate = match.DateStart;
+                                }
+                            </ul>
+                            <div id="load-more-spinner" style="display: none; text-align: center;">
+                                <p>Loading more matches...</p>
+                            </div>
+                            <div id="no-more-matches" style="display: none; text-align: center; color: gray;">
+                                <p>No more matches to load.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    let previousDate = '@Model.LastOrDefault()?.DateStart.ToString("yyyy-MM-dd")' || null;
+    let skip = @Model.Count();  // Số trận đã hiển thị ban đầu
+    const take = 10;  // Số trận đấu cần tải thêm mỗi lần
+    async function loadMoreMatches() {
+        const spinner = document.getElementById('load-more-spinner');
+        spinner.style.display = 'block';
+
+        try {
+            const url = '@Url.Action("LoadMatches", "Results")?skip=' + skip + '&take=' + take;
+            const response = await fetch(url);
+            const matches = await response.json();
+
+            if (matches.length > 0) {
+                const matchList = document.getElementById('match-list').querySelector('ul');
+                matches.forEach(match => {
+                    const existingMatch = document.querySelector(`[data-match-id="${match.matchId}"]`);
+                    if (!existingMatch) {
+                        const matchDate = new Date(match.dateStart);
+                        if (previousDate !== match.dateStart) {
+                            const dateElement = document.createElement('h5');
+                            dateElement.textContent = `${getOrdinalSuffix(matchDate.getDate())} ${matchDate.toLocaleString('en-us', { month: 'long' })} ${matchDate.getFullYear()}`;
+                            matchList.appendChild(dateElement);
+                        }
+                        previousDate = match.dateStart;
+
+                        const li = document.createElement('li');
+                        li.setAttribute('data-match-id', match.matchId);
+                        li.classList.add('schedule-details');
+                        li.innerHTML = `
+                                    <a href="#" style="text-align: center;">
+                                        <div class="block fixture">
+                                            <!-- home -->
+                                            <div class="team">
+                                                <img src="/Assets/images/logo/${match.logoHome}" alt="home-club" style="width: 40px; height: 40px">
+                                                <span class="name">${match.homeTeam}</span>
+                                            </div>
+                                            <!-- time -->
+                                            <div class="ratio">
+                                                <span class="time">${match.goalsH} - ${match.goalsA}</span>
+                                            </div>
+                                            <!-- away -->
+                                            <div class="team">
+                                                <span class="name">${match.awayTeam}</span>
+                                                <img src="/Assets/images/logo/${match.logoAway}" alt="away-club" style="width: 40px; height: 40px">
+                                            </div>
+                                            <!-- stadium -->
+                                            <div class="stadium">${match.stadium}</div>
+                                        </div>
+                                    </a>
+                                `;
+                        matchList.appendChild(li);
+                    }
+                });
+                skip += matches.length;
+            } else {
+                console.log("No more matches to load.");
+                const noMoreMatches = document.getElementById('no-more-matches');
+                noMoreMatches.style.display = 'block';
+                window.removeEventListener('scroll', onScroll);
+            }
+        } catch (error) {
+            console.error('Error loading matches:', error);
+        } finally {
+            spinner.style.display = 'none';
+        }
+    }
+
+    function getOrdinalSuffix(day) {
+        if (day > 3 && day < 21) return day + 'th';
+        switch (day % 10) {
+            case 1: return day + 'st';
+            case 2: return day + 'nd';
+            case 3: return day + 'rd';
+            default: return day + 'th';
+        }
+    }
+
+    function onScroll() {
+        if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 530) {
+            loadMoreMatches();
+        }
+    }
+
+    window.addEventListener('scroll', onScroll);
+</script>

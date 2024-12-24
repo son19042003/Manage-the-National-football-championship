@@ -19,6 +19,8 @@ public partial class FootballManagementContext : DbContext
 
     public virtual DbSet<Club> Clubs { get; set; }
 
+    public virtual DbSet<Goal> Goals { get; set; }
+
     public virtual DbSet<Match> Matches { get; set; }
 
     public virtual DbSet<News> News { get; set; }
@@ -35,9 +37,9 @@ public partial class FootballManagementContext : DbContext
 
     public virtual DbSet<TypeNews> TypeNews { get; set; }
 
-//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseSqlServer("Data Source=MSI\\SQLEXPRESS;Initial Catalog=FootballManagement;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Data Source=MSI\\SQLEXPRESS;Initial Catalog=FootballManagement;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -62,7 +64,7 @@ public partial class FootballManagementContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("firstName");
             entity.Property(e => e.Gender)
-                .HasMaxLength(10)
+                .HasMaxLength(15)
                 .IsUnicode(false)
                 .IsFixedLength()
                 .HasColumnName("gender");
@@ -81,6 +83,13 @@ public partial class FootballManagementContext : DbContext
                 .HasMaxLength(20)
                 .IsUnicode(false)
                 .HasColumnName("phoneNum");
+            entity.Property(e => e.RandomKey)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("randomKey");
+            entity.Property(e => e.ResetKeyExpires)
+                .HasColumnType("datetime")
+                .HasColumnName("resetKeyExpires");
             entity.Property(e => e.RoleId).HasColumnName("roleId");
             entity.Property(e => e.Username)
                 .HasMaxLength(50)
@@ -130,6 +139,46 @@ public partial class FootballManagementContext : DbContext
                 .HasColumnName("stadium");
         });
 
+        modelBuilder.Entity<Goal>(entity =>
+        {
+            entity.HasKey(e => e.GoalId).HasName("PK__Goals__7E225EB1A068B213");
+
+            entity.Property(e => e.GoalId).HasColumnName("goalId");
+            entity.Property(e => e.GoalIndex).HasDefaultValue(1);
+            entity.Property(e => e.MatchId).HasColumnName("matchId");
+            entity.Property(e => e.PlayerId).HasColumnName("playerId");
+            entity.Property(e => e.TeamId)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("teamId");
+            entity.Property(e => e.TimeScored)
+                .HasMaxLength(12)
+                .IsUnicode(false)
+                .HasColumnName("timeScored");
+            entity.Property(e => e.TypeGid).HasColumnName("typeGId");
+
+            entity.HasOne(d => d.Match).WithMany(p => p.Goals)
+                .HasForeignKey(d => d.MatchId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Goals__matchId__3C34F16F");
+
+            entity.HasOne(d => d.Player).WithMany(p => p.GoalsNavigation)
+                .HasForeignKey(d => d.PlayerId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Goals__playerId__3D2915A8");
+
+            entity.HasOne(d => d.Team).WithMany(p => p.Goals)
+                .HasForeignKey(d => d.TeamId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Goals__teamId__3E1D39E1");
+
+            entity.HasOne(d => d.TypeG).WithMany(p => p.Goals)
+                .HasForeignKey(d => d.TypeGid)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Goals__typeGId__3F115E1A");
+        });
+
         modelBuilder.Entity<Match>(entity =>
         {
             entity.Property(e => e.MatchId).HasColumnName("matchId");
@@ -150,23 +199,12 @@ public partial class FootballManagementContext : DbContext
                 .IsUnicode(false)
                 .IsFixedLength()
                 .HasColumnName("homeTeam");
-            entity.Property(e => e.PlayerId).HasColumnName("playerId");
             entity.Property(e => e.Round).HasColumnName("round");
             entity.Property(e => e.Status)
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("status");
-            entity.Property(e => e.TimeGoal)
-                .HasMaxLength(12)
-                .IsUnicode(false)
-                .HasColumnName("timeGoal");
             entity.Property(e => e.TimeStart).HasColumnName("timeStart");
-            entity.Property(e => e.TypeGoal)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("typeGoal");
-            entity.Property(e => e.TypeGoalA).HasColumnName("typeGoalA");
-            entity.Property(e => e.TypeGoalH).HasColumnName("typeGoalH");
 
             entity.HasOne(d => d.AwayTeamNavigation).WithMany(p => p.MatchAwayTeamNavigations)
                 .HasForeignKey(d => d.AwayTeam)
@@ -177,18 +215,6 @@ public partial class FootballManagementContext : DbContext
                 .HasForeignKey(d => d.HomeTeam)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Matches_HomeTeam");
-
-            entity.HasOne(d => d.Player).WithMany(p => p.Matches)
-                .HasForeignKey(d => d.PlayerId)
-                .HasConstraintName("FK_Matches_Player");
-
-            entity.HasOne(d => d.TypeGoalANavigation).WithMany(p => p.MatchTypeGoalANavigations)
-                .HasForeignKey(d => d.TypeGoalA)
-                .HasConstraintName("FK_Matches_TypeGoal_Away");
-
-            entity.HasOne(d => d.TypeGoalHNavigation).WithMany(p => p.MatchTypeGoalHNavigations)
-                .HasForeignKey(d => d.TypeGoalH)
-                .HasConstraintName("FK_Matches_TypeGoal_Home");
         });
 
         modelBuilder.Entity<News>(entity =>
@@ -208,6 +234,7 @@ public partial class FootballManagementContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("imgContent");
+            entity.Property(e => e.Status).HasDefaultValue(true);
             entity.Property(e => e.Title)
                 .HasMaxLength(255)
                 .IsUnicode(false)

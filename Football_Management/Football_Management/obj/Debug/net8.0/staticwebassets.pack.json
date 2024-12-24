@@ -4773,6 +4773,10 @@
       "PackagePath": "staticwebassets\\Assets\\css\\style.css.map"
     },
     {
+      "Id": "D:\\Projects\\Project1_layout\\Football_Management\\Football_Management\\wwwroot\\Assets\\images\\account\\default.png",
+      "PackagePath": "staticwebassets\\Assets\\images\\account\\default.png"
+    },
+    {
       "Id": "D:\\Projects\\Project1_layout\\Football_Management\\Football_Management\\wwwroot\\Assets\\images\\background\\schedule-bg.png",
       "PackagePath": "staticwebassets\\Assets\\images\\background\\schedule-bg.png"
     },
@@ -4863,6 +4867,10 @@
     {
       "Id": "D:\\Projects\\Project1_layout\\Football_Management\\Football_Management\\wwwroot\\Assets\\images\\logo_preview_rev_1.png",
       "PackagePath": "staticwebassets\\Assets\\images\\logo_preview_rev_1.png"
+    },
+    {
+      "Id": "D:\\Projects\\Project1_layout\\Football_Management\\Football_Management\\wwwroot\\Assets\\images\\news\\thumbnail\\default.jpg",
+      "PackagePath": "staticwebassets\\Assets\\images\\news\\thumbnail\\default.jpg"
     },
     {
       "Id": "D:\\Projects\\Project1_layout\\Football_Management\\Football_Management\\wwwroot\\Assets\\images\\player\\default.png",

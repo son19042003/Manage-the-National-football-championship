@@ -19,5 +19,7 @@ public partial class News
 
     public int TypeNewsId { get; set; }
 
+    public bool Status { get; set; }
+
     public virtual TypeNews TypeNews { get; set; } = null!;
 }

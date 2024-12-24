@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Football_Management.Areas.Admin.ViewModels.NewsTypes.IndexViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Home </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-area="admin" asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item">  <a>Pages </a> </li>
+        <li class="breadcrumb-item active" aria-current="page">News types </li>
+    </ol>
+</nav>
+
+<a class="btn btn-primary" asp-controller="NewsTypes" asp-action="Create">
+    Create <span class="mdi mdi-plus-circle-outline"></span>
+</a>
+
+<div class="card card-default">
+    <div class="card-body">
+        <table class="table table-light">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">News type name</th>
+                    <th scope="col">News type description</th>
+                    <th scope="col">Other</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var typeNews in Model)
+                {
+                    <tr class="clubRow">
+                        <td scope="row">@typeNews.Index</td>
+                        <td>@typeNews.TypeNewsName</td>
+                        <td>@typeNews.TypeNewsDescription</td>
+                        <th>
+                            <a asp-controller="NewsTypes" asp-action="Edit" asp-route-id="@typeNews.TypeNewsId">
+                                <span class="mdi mdi-pencil"></span>
+                            </a>
+                            <a asp-controller="NewsTypes" asp-action="Delete" asp-route-id="@typeNews.TypeNewsId">
+                                <span class="mdi mdi-delete-outline"></span>
+                            </a>
+                        </th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

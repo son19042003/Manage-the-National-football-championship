@@ -1,0 +1,66 @@
+﻿<nav class="navbar main-nav border-less fixed-top navbar-expand-lg p-0">
+    <div class="container-fluid p-0">
+        <!-- logo -->
+        <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+            <img src="~/Assets/images/logo_final.png" alt="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fa fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item @(ViewData["ActiveTab"] != null && (ViewData["ActiveTab"] as string) == "Home" ? "active" : "")">
+                    <a class="nav-link" asp-controller="Home" asp-action="Index">
+                        Home<span>/</span>
+                    </a>
+                </li>
+                <li class="nav-item @(ViewData["ActiveTab"] != null && (ViewData["ActiveTab"] as string) == "Fixtures" ? "active" : "")">
+                    <a class="nav-link" asp-controller="Fixtures" asp-action="Index">
+                        Fixtures<span>/</span>
+                    </a>
+                </li>
+                <li class="nav-item @(ViewData["ActiveTab"] != null && (ViewData["ActiveTab"] as string) == "Results" ? "active" : "")">
+                    <a class="nav-link" asp-controller="Results" asp-action="Index">
+                        Results<span>/</span>
+                    </a>
+                </li>
+                <li class="nav-item @(ViewData["ActiveTab"] != null && (ViewData["ActiveTab"] as string) == "Tables" ? "active" : "")">
+                    <a class="nav-link" asp-controller="Tables" asp-action="Index">
+                        Tables<span>/</span>
+                    </a>
+                </li>
+                <li class="nav-item @(ViewData["ActiveTab"] != null && (ViewData["ActiveTab"] as string) == "Clubs" ? "active" : "")">
+                    <a class="nav-link" asp-controller="Clubs" asp-action="Index">
+                        Clubs<span>/</span>
+                    </a>
+                </li>
+                <li class="nav-item @(ViewData["ActiveTab"] != null && (ViewData["ActiveTab"] as string) == "Stats" ? "active" : "")">
+                    <a class="nav-link" asp-controller="Stats" asp-action="Index">
+                        Stats<span>/</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown @(ViewData["ActiveTab"] != null && (ViewData["ActiveTab"] as string) == "News" ? "active" : "")">
+                    <a class="nav-link" data-toggle="dropdown">
+                        News <i class="fa fa-angle-down"></i><span>/</span>
+                    </a>
+                    <!-- Dropdown list -->
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" asp-controller="News" asp-action="InjuryNews">Injury news</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" asp-controller="News" asp-action="TransferNews">Transfer</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" asp-controller="News" asp-action="NormalNews">News</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <a asp-controller="Login" asp-action="Index" class="ticket">
+                <span>Login</span>
+            </a>
+        </div>
+    </div>
+</nav>

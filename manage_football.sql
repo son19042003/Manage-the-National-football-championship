@@ -96,43 +96,21 @@ CREATE TABLE [dbo].[Matches](
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 
-GO
-ALTER TABLE [dbo].[Matches]
-DROP COLUMN [timeGoal];
-GO
-ALTER TABLE [dbo].[Matches]
-ADD [timeGoal] varchar(12);
 
-GO
-ALTER TABLE [dbo].[Matches]
-ADD CONSTRAINT FK_Matches_HomeTeam
-FOREIGN KEY ([homeTeam])
-REFERENCES [dbo].[Club]([clubId]);
+CREATE TABLE [dbo].[Goals] (
+    goalId INT IDENTITY(1,1) PRIMARY KEY,
+    matchId INT NOT NULL,
+    playerId INT NOT NULL,
+    teamId CHAR(10) NOT NULL,
+    timeScored VARCHAR(12) NOT NULL,
+    typeGId INT NOT NULL,
+    FOREIGN KEY (matchId) REFERENCES Matches(matchId),
+    FOREIGN KEY (playerId) REFERENCES Players(playerId),
+    FOREIGN KEY (teamId) REFERENCES Club(clubId),
+    FOREIGN KEY (typeGId) REFERENCES TypeGoal(typeGId)
+);
 
-ALTER TABLE [dbo].[Matches]
-ADD CONSTRAINT FK_Matches_AwayTeam
-FOREIGN KEY ([awayTeam])
-REFERENCES [dbo].[Club]([clubId]);
-
-ALTER TABLE [dbo].[Matches]
-ADD CONSTRAINT FK_Matches_Player
-FOREIGN KEY ([playerId])
-REFERENCES [dbo].[Players]([playerId]);
-
-GO
-ALTER TABLE [dbo].[Matches]
-ADD [typeGoalH] int NULL,
-    [typeGoalA] int NULL;
-
-ALTER TABLE [dbo].[Matches]
-ADD CONSTRAINT FK_Matches_TypeGoal_Home
-FOREIGN KEY ([typeGoalH])
-REFERENCES [dbo].[TypeGoal]([typeGId]);
-
-ALTER TABLE [dbo].[Matches]
-ADD CONSTRAINT FK_Matches_TypeGoal_Away
-FOREIGN KEY ([typeGoalA])
-REFERENCES [dbo].[TypeGoal]([typeGId]);
+ALTER TABLE Goals ADD GoalIndex INT NOT NULL DEFAULT 1;
 
 GO
 SET ANSI_NULLS ON
@@ -218,11 +196,17 @@ GO
 ALTER TABLE [dbo].[Account]
 ADD [isActive] BIT NOT NULL DEFAULT 1;
 
+ALTER TABLE [dbo].[Account]
+ALTER COLUMN [gender] CHAR(15) NOT NULL;
+
 GO
 ALTER TABLE [dbo].[Account]
 ADD CONSTRAINT FK_Account_Role
 FOREIGN KEY ([roleId])
 REFERENCES [dbo].[Role]([roleId]);
+
+ALTER TABLE [dbo].[Account] ADD [randomKey] VARCHAR(255);
+ALTER TABLE [dbo].[Account] ADD [resetKeyExpires] DATETIME;
 
 GO
 SET ANSI_NULLS ON
@@ -265,6 +249,9 @@ ALTER TABLE [dbo].[News]
 ADD CONSTRAINT FK_News_TypeNews
 FOREIGN KEY ([typeNewsId])
 REFERENCES [dbo].[TypeNews]([typeNewsId]);
+
+ALTER TABLE [dbo].[News]
+ADD [Status] bit NOT NULL default 1;
 
 GO
 SET ANSI_NULLS ON

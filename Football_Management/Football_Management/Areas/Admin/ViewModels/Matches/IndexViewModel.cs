@@ -10,5 +10,9 @@
         public TimeOnly TimeStart { get; set; }
         public DateOnly DateStart { get; set; }
         public int Index { get; set; }
+        public string? LogoHomeTeam { get; set; }
+        public string? LogoAwayTeam { get; set; }
+        public int? GoalsH { get; set; }
+        public int? GoalsA { get; set; }
     }
 }

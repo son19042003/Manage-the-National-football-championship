@@ -25,7 +25,7 @@
         </li>
         <li class="breadcrumb-item">  <a>Team </a> </li>
         <li class="breadcrumb-item">
-            <a asp-controller="Clubs" asp-action="Index">Information  </a>
+            <a asp-controller="Clubs" asp-action="Index" asp-route-pageNumber="@ViewData["PageNumber"]">Information  </a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">Edit </li>
     </ol>
@@ -36,6 +36,7 @@
         <h2>Club: @Model.ClubName</h2>
         <form asp-action="Edit" method="post" enctype="multipart/form-data">
             <input type="hidden" asp-for="ClubId" />
+            <input type="hidden" asp-for="PageNumber" />
             <div class="form-group">
                 <label asp-for="ClubName">Club name</label>
                 <input class="form-control" asp-for="ClubName">
@@ -83,7 +84,7 @@
             </div>
             <div class="form-footer mt-6">
                 <button type="submit" class="btn btn-primary btn-pill">Submit</button>
-                <a class="btn btn-light btn-pill" asp-controller="Clubs" asp-action="Index">Cancel</a>
+                <a class="btn btn-light btn-pill" asp-controller="Clubs" asp-action="Index" asp-route-pageNumber="@ViewData["PageNumber"]">Cancel</a>
             </div>
         </form>
     </div>

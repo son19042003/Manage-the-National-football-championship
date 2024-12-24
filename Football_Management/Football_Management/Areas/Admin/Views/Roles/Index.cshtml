@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Football_Management.Areas.Admin.ViewModels.Roles.IndexViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Home </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-area="admin" asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Roles </li>
+    </ol>
+</nav>
+
+<a class="btn btn-primary" asp-controller="Roles" asp-action="Create">
+    Create <span class="mdi mdi-plus-circle-outline"></span>
+</a>
+
+<div class="card card-default">
+    <div class="card-body">
+        <table class="table table-light">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Role name</th>
+                    <th scope="col">Role description</th>
+                    <th scope="col">Other</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var role in Model)
+                {
+                    <tr class="clubRow">
+                        <td scope="row">@role.Index</td>
+                        <td>@role.RoleName</td>
+                        <td>@role.RoleDescription</td>
+                        <th>
+                            <a asp-controller="Roles" asp-action="Edit" asp-route-id="@role.RoleId">
+                                <span class="mdi mdi-pencil"></span>
+                            </a>
+                            <a asp-controller="Roles" asp-action="Delete" asp-route-id="@role.RoleId">
+                                <span class="mdi mdi-delete-outline"></span>
+                            </a>
+                        </th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

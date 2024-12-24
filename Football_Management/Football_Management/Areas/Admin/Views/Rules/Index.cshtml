@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Football_Management.Areas.Admin.ViewModels.Rules.IndexViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Home </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-area="admin" asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Rule </li>
+    </ol>
+</nav>
+
+<div class="card card-default">
+    <div class="card-body">
+        <table class="table table-light">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Rule id</th>
+                    <th scope="col">Min age</th>
+                    <th scope="col">Max foreign players</th>
+                    <th scope="col">Min player</th>
+                    <th scope="col">Max player</th>
+                    <th scope="col">Other</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var rule in Model)
+                {
+                    <tr class="clubRow">
+                        <td scope="row">@rule.RuleId</td>
+                        <td>@rule.MinAge</td>
+                        <td>@rule.MaxForeignPlayers</td>
+                        <td>@rule.MinPlayer</td>
+                        <td>@rule.MaxPlayer</td>
+                        <th>
+                            <a asp-controller="Rules" asp-action="Edit" asp-route-id="@rule.RuleId">
+                                <span class="mdi mdi-pencil"></span>
+                            </a>
+                        </th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

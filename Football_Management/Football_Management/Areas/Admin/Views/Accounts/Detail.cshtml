@@ -1,0 +1,104 @@
+﻿@model Football_Management.Areas.Admin.ViewModels.Accounts.DetailViewModel
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Home </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Accounts </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item">
+            <a asp-controller="Accounts" asp-action="Index" asp-route-pageNumber="@ViewData["PageNumber"]">Accounts  </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Detail </li>
+    </ol>
+</nav>
+
+<div class="card card-default">
+    <div class="card-body">
+        <table class="table table-light">
+            <thead>
+                <tr>
+                    <th scope="col">Account:</th>
+                    <th scope="col">@Model.UserName</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">Account id:</td>
+                    <td>@Model.AccountsId</td>
+                </tr>
+                <tr>
+                    <td scope="row">Username:</td>
+                    <td>@Model.UserName</td>
+                </tr>
+                <tr>
+                    <td scope="row">Avatar:</td>
+                    <td>
+                        <img src="~/Assets/images/account/@Model.AvatarUrl" alt="Avatar" style="height: 60px; width: 60px" />
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="row">Password:</td>
+                    <td>@Model.Password</td>
+                </tr>
+                <tr>
+                    <td scope="row">Email:</td>
+                    <td>@Model.Email</td>
+                </tr>
+                <tr>
+                    <td scope="row">Phone number:</td>
+                    <td>@Model.PhoneNumber</td>
+                </tr>
+                <tr>
+                    <td scope="row">Name:</td>
+                    <td>@Model.FirstName @Model.LastName</td>
+                </tr>
+                <tr>
+                    <td scope="row">Gender:</td>
+                    <td>@Model.Gender</td>
+                </tr>
+                <tr>
+                    <td scope="row">Date of birth:</td>
+                    <td>@Model.DateOfBirth</td>
+                </tr>
+                <tr>
+                    <td scope="row">Role name:</td>
+                    <td>@Model.RoleName</td>
+                </tr>
+                <tr>
+                    <td scope="row">Is active?</td>
+                    <td>
+                        @if (Model.IsActive)
+                        {
+                            <span class="badge badge-success">Active</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-danger">Blocked</span>
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="margin-top: 20px">
+            <a class="btn btn-sm btn-info" asp-action="Index" asp-route-pageNumber="@ViewData["PageNumber"]">Back to list</a> |
+            <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@Model.AccountsId" asp-route-pageNumber="@ViewData["PageNumber"]">Edit</a> |
+            <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@Model.AccountsId" asp-route-pageNumber="@ViewData["PageNumber"]">Delete</a>
+        </div>
+    </div>
+</div>

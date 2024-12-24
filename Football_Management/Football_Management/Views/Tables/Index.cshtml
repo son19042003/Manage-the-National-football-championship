@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Football_Management.ViewModels.Tables.TablesViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!-- table -->
+<section class="section schedule tables" style="margin-bottom: 50px">
+    <div class="container">
+        <h2 class="text-center mb-4">Tables</h2>
+        <table class="table table-striped table-bordered">
+            <thead class="table-header table-details">
+                <tr>
+                    <th class="position">Position</th>
+                    <th class="club">Club</th>
+                    <th class="played">Played</th>
+                    <th class="won">Won</th>
+                    <th class="drawn">Drawn</th>
+                    <th class="lost">Lost</th>
+                    <th class="gf">GF</th>
+                    <th class="ga">GA</th>
+                    <th class="gd">GD</th>
+                    <th class="points">Points</th>
+                </tr>
+            </thead>
+            <tbody class="table-details">
+                @foreach (var club in Model)
+                {
+                    <tr>
+                        <td class="position">@club.Index</td>
+                        <td class="club" style="text-align: left">
+                            <a href="#" class="team-link">
+                                <img src="~/Assets/images/logo/@club.Logo" alt="Logo" class="logo"> @club.ClubName
+                            </a>
+                        </td>
+                        <td class="played">@club.Played</td>
+                        <td class="won">@club.Won</td>
+                        <td class="drawn">@club.Drawn</td>
+                        <td class="lost">@club.Lost</td>
+                        <td class="gf">@club.GoalsFor</td>
+                        <td class="ga">@club.GoalsAgainst</td>
+                        <td class="gd">@club.GoalsDifference</td>
+                        <td class="points">@club.Points</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

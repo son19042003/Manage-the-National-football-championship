@@ -1,0 +1,91 @@
+﻿@model Football_Management.Areas.Admin.ViewModels.Standing.EditViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Home </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item">  <a>Rankings </a> </li>
+        <li class="breadcrumb-item active" aria-current="page">Standing </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item">  <a>Rankings </a> </li>
+        <li class="breadcrumb-item">
+            <a asp-controller="Standing" asp-action="Index">Standing  </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Edit </li>
+    </ol>
+</nav>
+
+<div class="card card-default">
+    <div class="card-body">
+        <img src="~/Assets/images/logo/@Model.LogoUrl" alt="Logo" style="height: 60px; width: 60px" />
+        <h2>Position: @Model.Index</h2>
+        <form asp-action="Edit" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="StandingId" />
+            <div class="form-group">
+                <label asp-for="ClubName">Club</label>
+                <input class="form-control" asp-for="ClubName" readonly>
+                <span class="mt-2 d-block" asp-validation-for="ClubName"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Played">Played</label>
+                <input class="form-control" asp-for="Played" readonly>
+                <span class="mt-2 d-block" asp-validation-for="Played"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Won">Won</label>
+                <input class="form-control" asp-for="Won" readonly>
+                <span class="mt-2 d-block" asp-validation-for="Won"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Drawn">Drawn</label>
+                <input class="form-control" asp-for="Drawn" readonly>
+                <span class="mt-2 d-block" asp-validation-for="Drawn"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Lost">Lost</label>
+                <input class="form-control" asp-for="Lost" readonly>
+                <span class="mt-2 d-block" asp-validation-for="Lost"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GoalF">Goal for</label>
+                <input class="form-control" asp-for="GoalF" readonly>
+                <span class="mt-2 d-block" asp-validation-for="GoalF"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GoalA">Goal against</label>
+                <input class="form-control" asp-for="GoalA" readonly>
+                <span class="mt-2 d-block" asp-validation-for="GoalA"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GoalDifference">Goal difference</label>
+                <input class="form-control" asp-for="GoalDifference" readonly>
+                <span class="mt-2 d-block" asp-validation-for="GoalDifference"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Points">Points</label>
+                <input class="form-control" asp-for="Points">
+                <span class="mt-2 d-block" asp-validation-for="Points"></span>
+            </div>
+            <div class="form-footer mt-6">
+                <button type="submit" class="btn btn-primary btn-pill">Submit</button>
+                <a class="btn btn-light btn-pill" asp-controller="Standing" asp-action="Index">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

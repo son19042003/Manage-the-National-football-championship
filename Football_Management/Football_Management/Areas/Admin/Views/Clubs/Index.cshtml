@@ -64,13 +64,13 @@
                             }
                         </td>
                         <th>
-                            <a asp-controller="Clubs" asp-action="Detail" asp-route-id="@club.ClubId">
+                            <a asp-controller="Clubs" asp-action="Detail" asp-route-id="@club.ClubId" asp-route-pageNumber="@Model.PageNumber">
                                 <span class="mdi mdi-format-list-bulleted"></span>
                             </a>
-                            <a asp-controller="Clubs" asp-action="Edit" asp-route-id="@club.ClubId">
+                            <a asp-controller="Clubs" asp-action="Edit" asp-route-id="@club.ClubId" asp-route-pageNumber="@Model.PageNumber">
                                 <span class="mdi mdi-pencil"></span>
                             </a>
-                            <a asp-controller="Clubs" asp-action="Delete" asp-route-id="@club.ClubId">
+                            <a asp-controller="Clubs" asp-action="Delete" asp-route-id="@club.ClubId" asp-route-pageNumber="@Model.PageNumber">
                                 <span class="mdi mdi-delete-outline"></span>
                             </a>
                         </th>

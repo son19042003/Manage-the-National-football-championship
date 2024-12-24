@@ -21,6 +21,8 @@ public partial class Club
 
     public bool IsActive { get; set; }
 
+    public virtual ICollection<Goal> Goals { get; set; } = new List<Goal>();
+
     public virtual ICollection<Match> MatchAwayTeamNavigations { get; set; } = new List<Match>();
 
     public virtual ICollection<Match> MatchHomeTeamNavigations { get; set; } = new List<Match>();

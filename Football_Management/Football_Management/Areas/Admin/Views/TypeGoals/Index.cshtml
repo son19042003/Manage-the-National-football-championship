@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Football_Management.Areas.Admin.ViewModels.TypeGoals.IndexViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Home </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-area="admin" asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Goal Types </li>
+    </ol>
+</nav>
+
+<a class="btn btn-primary" asp-controller="TypeGoals" asp-action="Create">
+    Create <span class="mdi mdi-plus-circle-outline"></span>
+</a>
+
+<div class="card card-default">
+    <div class="card-body">
+        <table class="table table-light">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Type goal name</th>
+                    <th scope="col">Type goal description</th>
+                    <th scope="col">Other</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var typeGoal in Model)
+                {
+                    <tr class="clubRow">
+                        <td scope="row">@typeGoal.Index</td>
+                        <td>@typeGoal.TypeGoalName</td>
+                        <td>@typeGoal.TypeGoalDescription</td>
+                        <th>
+                            <a asp-controller="TypeGoals" asp-action="Edit" asp-route-id="@typeGoal.TypeGoalId">
+                                <span class="mdi mdi-pencil"></span>
+                            </a>
+                            <a asp-controller="TypeGoals" asp-action="Delete" asp-route-id="@typeGoal.TypeGoalId">
+                                <span class="mdi mdi-delete-outline"></span>
+                            </a>
+                        </th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

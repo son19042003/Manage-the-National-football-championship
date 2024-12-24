@@ -27,5 +27,6 @@ namespace Football_Management.Areas.Admin.ViewModels.Clubs
 
         public IFormFile? LogoFile { get; set; }
         public bool IsActive { get; set; }
+        public int PageNumber { get; set; }
     }
 }

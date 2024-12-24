@@ -18,8 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModels\" />
     <Folder Include="wwwroot\AdminAssets\" />
+    <Folder Include="wwwroot\Assets\images\news\content\" />
+    <Folder Include="wwwroot\Assets\images\news\thumbnail\" />
   </ItemGroup>
 
 </Project>

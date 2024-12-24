@@ -1,0 +1,117 @@
+﻿@model Football_Management.Areas.Admin.ViewModels.Players.DetailViewModel
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Home </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item">  <a>Team </a> </li>
+        <li class="breadcrumb-item active" aria-current="page">Players </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item">  <a>Team </a> </li>
+        <li class="breadcrumb-item">
+            <a asp-controller="Players" asp-action="Index" asp-route-pageNumber="@ViewData["PageNumber"]">Players  </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Detail </li>
+    </ol>
+</nav>
+
+<div class="card card-default">
+    <div class="card-body">
+        <table class="table table-light">
+            <thead>
+                <tr>
+                    <th scope="col">Player's id:</th>
+                    <th scope="col">@Model.PlayerId</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">Player's name:</td>
+                    <td>
+                        <img src="~/Assets/images/player/@Model.AvatarUrl" alt="Avatar" style="height: 60px; width: 60px" />
+                        <span style="margin-left: 10px">@Model.FirstName @Model.LastName</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="row">Club:</td>
+                    <td>@Model.ClubName</td>
+                </tr>
+                <tr>
+                    <td scope="row">Birthday:</td>
+                    <td>@Model.Birthday</td>
+                </tr>
+                <tr>
+                    <td scope="row">Height:</td>
+                    <td>@Model.Height (cm)</td>
+                </tr>
+                <tr>
+                    <td scope="row">Nationality:</td>
+                    <td>
+                        <span>@Model.Nationality</span>
+                        @if (Model.DomesticPlayer)
+                        {
+                            <span class="badge badge-square badge-outline-info"> Domestic player</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-square badge-outline-warning"> Foreign player</span>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="row">Position:</td>
+                    <td>@Model.Position</td>
+                </tr>
+                <tr>
+                    <td scope="row">Number:</td>
+                    <td>@Model.Number</td>
+                </tr>
+                <tr>
+                    <td scope="row">Link Facebook:</td>
+                    <td>@Model.LinkFb</td>
+                </tr>
+                <tr>
+                    <td scope="row">Link Instagram:</td>
+                    <td>@Model.LinkIg</td>
+                </tr>
+                <tr>
+                    <td scope="row">Goals:</td>
+                    <td>@Model.Goals</td>
+                </tr>
+                <tr>
+                    <td scope="row">Is in club?</td>
+                    <td>
+                        @if (Model.IsInClub)
+                        {
+                            <span class="badge badge-success">In</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-warning">Has left</span>
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="margin-top: 20px">
+            <a class="btn btn-sm btn-info" asp-action="Index" asp-route-pageNumber="@ViewData["PageNumber"]">Back to list</a> |
+            <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@Model.PlayerId" asp-route-pageNumber="@ViewData["PageNumber"]">Edit</a> |
+            <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@Model.PlayerId" asp-route-pageNumber="@ViewData["PageNumber"]">Delete</a>
+        </div>
+    </div>
+</div>

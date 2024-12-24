@@ -15,7 +15,8 @@ namespace Football_Management.Areas.Admin.Controllers
             _context = context;
         }
 
-        //GET index
+
+        [HttpGet]
         public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 20)
         {
             ViewData["ActiveTab"] = "Clubs";
@@ -24,13 +25,13 @@ namespace Football_Management.Areas.Admin.Controllers
                 .OrderByDescending(c => c.IsActive)
                 .ThenBy(c => c.ClubId)
                 .Select(c => new IndexViewModel
-            {
-                ClubId = c.ClubId,
-                ClubName = c.ClubName,
-                LogoUrl = c.Logo ?? string.Empty,
-                Stadium = c.Stadium,
-                IsActive = c.IsActive
-            }).ToListAsync();
+                {
+                    ClubId = c.ClubId,
+                    ClubName = c.ClubName,
+                    LogoUrl = c.Logo ?? string.Empty,
+                    Stadium = c.Stadium,
+                    IsActive = c.IsActive
+                }).ToListAsync();
 
             int skip = (pageNumber - 1) * pageSize;
             int totalClubs = await _context.Clubs.CountAsync();
@@ -56,9 +57,14 @@ namespace Football_Management.Areas.Admin.Controllers
             return View(paginatedResult);
         }
 
-        //GET detail
-        public async Task<IActionResult> Detail(string id)
+
+        //Detail
+        //GET
+        [HttpGet]
+        public async Task<IActionResult> Detail(string id, int pageNumber = 1)
         {
+            ViewData["ActiveTab"] = "Clubs";
+
             var club = await _context.Clubs
                 .Where(c => c.ClubId == id)
                 .FirstOrDefaultAsync();
@@ -84,13 +90,19 @@ namespace Football_Management.Areas.Admin.Controllers
                 IsActive = club.IsActive
             };
 
+            ViewData["PageNumber"] = pageNumber;
+
             return View(viewModel);
         }
 
+
         //create
         //GET
+        [HttpGet]
         public IActionResult Create()
         {
+            ViewData["ActiveTab"] = "Clubs";
+
             return View();
         }
 
@@ -164,10 +176,14 @@ namespace Football_Management.Areas.Admin.Controllers
             return View(model);
         }
 
+
         //edit
         //GET
-        public async Task<IActionResult> Edit(string id)
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id, int pageNumber = 1)
         {
+            ViewData["ActiveTab"] = "Clubs";
+
             if (string.IsNullOrEmpty(id))
             {
                 return BadRequest("Invalid Club ID.");
@@ -190,6 +206,8 @@ namespace Football_Management.Areas.Admin.Controllers
                 LinkIg = club.LinkIg,
                 IsActive = club.IsActive
             };
+
+            ViewData["PageNumber"] = pageNumber;
 
             return View(viewModel);
         }
@@ -266,7 +284,9 @@ namespace Football_Management.Areas.Admin.Controllers
             {
                 await _context.SaveChangesAsync();
                 TempData["SuccessMassage"] = "Club details updated successfully!";
-                return RedirectToAction("Index");
+
+                int pageNumber = model.PageNumber;
+                return RedirectToAction(nameof(Index), new { pageNumber });
             }
             catch (Exception ex)
             {
@@ -275,11 +295,14 @@ namespace Football_Management.Areas.Admin.Controllers
             }
         }
 
+
         //Delete
         //GET
         [HttpGet]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(string id, int pageNumber = 1)
         {
+            ViewData["ActiveTab"] = "Clubs";
+
             var club = await _context.Clubs
                 .Where(c => c.ClubId == id)
                 .FirstOrDefaultAsync();
@@ -302,11 +325,14 @@ namespace Football_Management.Areas.Admin.Controllers
                 ConfirmDelete = false
             };
 
+            ViewData["PageNumber"] = pageNumber;
+
             return View(viewModel);
         }
 
         //POST
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string id, DeleteViewModel model)
         {
             var club = await _context.Clubs
@@ -323,7 +349,8 @@ namespace Football_Management.Areas.Admin.Controllers
                 _context.Clubs.Remove(club);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction("Index");
+                int pageNumber = TempData["PageNumber"] != null ? Convert.ToInt32(TempData["PageNumber"]) : 1;
+                return RedirectToAction(nameof(Index), new { pageNumber });
             }
             else
             {

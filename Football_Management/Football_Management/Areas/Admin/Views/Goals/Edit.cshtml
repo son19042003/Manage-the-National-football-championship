@@ -1,0 +1,139 @@
+﻿@model Football_Management.Areas.Admin.ViewModels.Goals.EditViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Home </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item">  <a>Matches </a> </li>
+        <li class="breadcrumb-item active" aria-current="page">Goals </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item">  <a>Matches </a> </li>
+        <li class="breadcrumb-item">
+            <a asp-controller="Goals" asp-action="Index" asp-route-pageNumber="@ViewData["PageNumber"]">Goals  </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Detail </li>
+    </ol>
+</nav>
+
+<div class="card card-default">
+    <div class="card-body">
+        <table class="table table-light">
+            <thead>
+                <tr>
+                    <th scope="col">Team's goal:</th>
+                    <th scope="col">@Model.TeamGoal (@Model.GoalIndex)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">Round @Model.Round:</td>
+                    <td>
+                        @Model.HomeTeam
+                        <span style="margin: 0 5px" class="badge badge-square badge-light">@Model.GoalH - @Model.GoalA</span>
+                        @Model.AwayTeam
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <form asp-action="Edit" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="GoalId" />
+            <input type="hidden" asp-for="PageNumber" />
+            <input type="hidden" id="IsHomeGoal" asp-for="@Model.IsHomeGoal" />
+            <div class="form-group">
+                <label asp-for="PlayerId">Player score (Home)</label>
+                <select asp-for="PlayerId" asp-items="Model.ListPlayersH" id="PlayerIdHome" name="PlayerIdHome" class="form-control"></select>
+                <span class="mt-2 d-block" asp-validation-for="PlayerId"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlayerId">Player score (Away)</label>
+                <select asp-for="PlayerId" asp-items="Model.ListPlayersA" id="PlayerIdAway" name="PlayerIdAway" class="form-control"></select>
+                <span class="mt-2 d-block" asp-validation-for="PlayerId"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TypeGoalId">Goal type</label>
+                <select asp-for="TypeGoalId" id="TypeGoal" class="form-control" asp-items="Model.ListTypeGoals"></select>
+                <span class="mt-2 d-block" asp-validation-for="TypeGoalId"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeScore">Time score</label>
+                <input class="form-control" asp-for="TimeScore">
+                <span class="mt-2 d-block" asp-validation-for="TimeScore"></span>
+            </div>
+            <div class="form-footer mt-6">
+                <button type="submit" class="btn btn-primary btn-pill">Submit</button>
+                <a class="btn btn-light btn-pill" asp-controller="Goals" asp-action="Index" asp-route-pageNumber="@ViewData["PageNumber"]">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Lấy các phần tử select
+        var typeGoalSelect = document.getElementById('TypeGoal');
+        var playerIdHomeSelect = document.getElementById('PlayerIdHome');
+        var playerIdAwaySelect = document.getElementById('PlayerIdAway');
+        var isHomeGoal = document.getElementById('IsHomeGoal').value;
+        console.log(isHomeGoal)
+
+        var typeGoalOptions = typeGoalSelect.options;
+
+        typeGoalSelect.addEventListener('change', function () {
+            var selectedText = typeGoalSelect.options[typeGoalSelect.selectedIndex].text;
+
+            if (isHomeGoal === "True") {
+                if (selectedText === "Own Goal") {
+                    playerIdHomeSelect.disabled = true;
+                    playerIdAwaySelect.disabled = false;
+                } else {
+                    playerIdHomeSelect.disabled = false;
+                    playerIdAwaySelect.disabled = true;
+                }
+            }
+            else {
+                if (selectedText === "Own Goal") {
+                    playerIdHomeSelect.disabled = false;
+                    playerIdAwaySelect.disabled = true;
+                } else {
+                    playerIdHomeSelect.disabled = true;
+                    playerIdAwaySelect.disabled = false;
+                }
+            }
+        });
+        var initialSelectedText = typeGoalSelect.options[typeGoalSelect.selectedIndex].text;
+        if (isHomeGoal === "True") {
+            if (initialSelectedText === "Own Goal") {
+                playerIdHomeSelect.disabled = true;
+                playerIdAwaySelect.disabled = false;
+            } else {
+                playerIdHomeSelect.disabled = false;
+                playerIdAwaySelect.disabled = true;
+            }
+        }
+        else {
+            if (initialSelectedText === "Own Goal") {
+                playerIdHomeSelect.disabled = false;
+                playerIdAwaySelect.disabled = true;
+            } else {
+                playerIdHomeSelect.disabled = true;
+                playerIdAwaySelect.disabled = false;
+            }
+        }
+    });
+</script>

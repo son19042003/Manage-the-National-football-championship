@@ -47,58 +47,7 @@
 
 <body class="body-wrapper">
     <!--=============== Navigation Section ===============-->
-    <nav class="navbar main-nav border-less fixed-top navbar-expand-lg p-0">
-        <div class="container-fluid p-0">
-            <!-- logo -->
-            <a class="navbar-brand" href="index.html">
-                <img src="~/Assets/images/logo_final.png" alt="logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="fa fa-bars"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Home
-                            <span>/</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="fixtures.html">Fixtures
-                            <span>/</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="results.html">Results<span>/</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="tables.html">Tables<span>/</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="club.html">Club<span>/</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="stats.html">Stats<span>/</span></a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="#!" data-toggle="dropdown">News <i
-                                class="fa fa-angle-down"></i><span>/</span>
-                        </a>
-                        <!-- Dropdown list -->
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="injury-news.html">Injury news</a></li>
-                            <li><a class="dropdown-item" href="transfer.html">Transfer</a></li>
-                            <li><a class="dropdown-item" href="news.html">News</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <a href="sign_in.html" class="ticket">
-                    <span>Login</span>
-                </a>
-            </div>
-        </div>
-    </nav>
+    @await Html.PartialAsync("_NavigationMenu.cshtml")
     <!--==========  End of Navigation Section  ==========-->
 
     @RenderBody()

@@ -1,0 +1,74 @@
+﻿@model Football_Management.Areas.Admin.ViewModels.Goals.DetailViewModel
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Home </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item">  <a>Matches </a> </li>
+        <li class="breadcrumb-item active" aria-current="page">Goals </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item">  <a>Matches </a> </li>
+        <li class="breadcrumb-item">
+            <a asp-controller="Goals" asp-action="Index" asp-route-pageNumber="@ViewData["PageNumber"]">Goals  </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Detail </li>
+    </ol>
+</nav>
+
+<div class="card card-default">
+    <div class="card-body">
+        <table class="table table-light">
+            <thead>
+                <tr>
+                    <th scope="col">Team's goal:</th>
+                    <th scope="col">@Model.TeamGoal (@Model.GoalIndex)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">Round:</td>
+                    <td>@Model.Round</td>
+                </tr>
+                <tr>
+                    <td scope="row">Match:</td>
+                    <td>
+                        @Model.HomeTeam
+                        <span style="margin: 0 5px" class="badge badge-square badge-light">@Model.GoalH - @Model.GoalA</span>
+                        @Model.AwayTeam
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="row">Player score:</td>
+                    <td>@Model.PlayerScore</td>
+                </tr>
+                <tr>
+                    <td scope="row">Time score:</td>
+                    <td>@Model.TimeScore</td>
+                </tr>
+                <tr>
+                    <td scope="row">Goal type:</td>
+                    <td>@Model.GoalType</td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="margin-top: 20px">
+            <a class="btn btn-sm btn-info" asp-action="Index" asp-route-pageNumber="@ViewData["PageNumber"]">Back to list</a> |
+            <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@Model.GoalId" asp-route-pageNumber="@ViewData["PageNumber"]">Edit</a>
+        </div>
+    </div>
+</div>

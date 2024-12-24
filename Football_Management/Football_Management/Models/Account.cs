@@ -29,5 +29,9 @@ public partial class Account
 
     public bool IsActive { get; set; }
 
+    public string? RandomKey { get; set; }
+
+    public DateTime? ResetKeyExpires { get; set; }
+
     public virtual Role Role { get; set; } = null!;
 }

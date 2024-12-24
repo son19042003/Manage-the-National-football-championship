@@ -37,5 +37,5 @@ public partial class Player
 
     public virtual Club Club { get; set; } = null!;
 
-    public virtual ICollection<Match> Matches { get; set; } = new List<Match>();
+    public virtual ICollection<Goal> GoalsNavigation { get; set; } = new List<Goal>();
 }

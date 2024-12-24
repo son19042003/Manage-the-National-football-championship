@@ -1,0 +1,113 @@
+﻿@model Football_Management.Areas.Admin.ViewModels.Accounts.DeleteViewModel
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Home </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Accounts </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item">
+            <a asp-controller="Accounts" asp-action="Index" asp-route-pageNumber="@ViewData["PageNumber"]">Accounts  </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Delete </li>
+    </ol>
+</nav>
+
+<div class="card card-default">
+    <div class="card-body">
+        <h3 class="text-danger" style="margin-bottom: 10px">Are you sure you want to delete the following account?</h3>
+        <table class="table table-light">
+            <thead>
+                <tr>
+                    <th scope="col">Account:</th>
+                    <th scope="col">@Model.UserName</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">Account id:</td>
+                    <td>@Model.AccountsId</td>
+                </tr>
+                <tr>
+                    <td scope="row">Username:</td>
+                    <td>@Model.UserName</td>
+                </tr>
+                <tr>
+                    <td scope="row">Avatar:</td>
+                    <td>
+                        <img src="~/Assets/images/account/@Model.AvatarUrl" alt="Avatar" style="height: 60px; width: 60px" />
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="row">Password:</td>
+                    <td>@Model.Password</td>
+                </tr>
+                <tr>
+                    <td scope="row">Email:</td>
+                    <td>@Model.Email</td>
+                </tr>
+                <tr>
+                    <td scope="row">Phone number:</td>
+                    <td>@Model.PhoneNumber</td>
+                </tr>
+                <tr>
+                    <td scope="row">Name:</td>
+                    <td>@Model.FirstName @Model.LastName</td>
+                </tr>
+                <tr>
+                    <td scope="row">Gender:</td>
+                    <td>@Model.Gender</td>
+                </tr>
+                <tr>
+                    <td scope="row">Date of birth:</td>
+                    <td>@Model.DateOfBirth</td>
+                </tr>
+                <tr>
+                    <td scope="row">Role name:</td>
+                    <td>@Model.RoleName</td>
+                </tr>
+                <tr>
+                    <td scope="row">Is active?</td>
+                    <td>
+                        @if (Model.IsActive)
+                        {
+                            <span class="badge badge-success">Active</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-danger">Blocked</span>
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <form style="margin-top: 15px" method="post" asp-controller="Accounts" asp-action="Delete">
+            <input type="hidden" name="id" value="@Model.AccountsId" />
+            <label class="text-danger" for="ConfirmDelete">Confirm Delete?</label>
+            <div class="form-check d-inline-block mr-3 mb-3">
+                <input class="form-check-input" type="checkbox" id="ConfirmDelete" name="ConfirmDelete" value="true" />
+                <label class="form-check-label" for="ConfirmDelete">Yes, I want to delete this account.</label>
+            </div>
+
+            <div class="form-footer mt-6">
+                <button type="submit" class="mb-1 btn btn-pill btn-danger">Submit</button>
+                <a class="btn btn-light btn-pill" asp-controller="Accounts" asp-action="Index" asp-route-pageNumber="@ViewData["PageNumber"]">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

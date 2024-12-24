@@ -14,7 +14,8 @@
         <li class="breadcrumb-item">
             <a asp-area="admin" asp-controller="home" asp-action="Index">Home  </a>
         </li>
-        <li class="breadcrumb-item active" aria-current="page">Matches </li>
+        <li class="breadcrumb-item">  <a>Matches </a> </li>
+        <li class="breadcrumb-item active" aria-current="page">Match results </li>
     </ol>
 </nav>
 
@@ -39,25 +40,50 @@
             <thead class="thead-light">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Home Team</th>
                     <th scope="col">Round</th>
+                    <th scope="col">Home Team</th>
+                    <th scope="col">Date</th>
                     <th scope="col">Away Team</th>
                     <th scope="col">Other</th>
                 </tr>
             </thead>
-            <tbody id="clubsTable">
+            <tbody id="matchesTable">
                 @foreach (var match in Model.Items)
                 {
                     <tr class="clubRow">
                         <td scope="row">@match.Index</td>
-                        <td>@match.HomeTeam</td>
                         <td>@match.Round</td>
-                        <td>@match.AwayTeam</td>
+                        <td>
+                            <img src="~/Assets/images/logo/@match.LogoHomeTeam" alt="Logo" style="width: 30px; height: 30px" />
+                            <span style="margin-left: 10px">@match.HomeTeam</span>
+                        </td>
+                        <td>
+                            @if (match.Status == "Full-time")
+                            {
+                                <span class="badge badge-success">@match.GoalsH - @match.GoalsA</span>
+                            }
+                            else if (match.Status == "Delayed")
+                            {
+                                <span class="badge badge-warning">@match.DateStart</span>
+                            }
+                            else if (match.Status == "Scheduled")
+                            {
+                                <span class="badge badge-light">@match.DateStart</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">@match.GoalsH - @match.GoalsA</span>
+                            }
+                        </td>
+                        <td>
+                            <span style="margin-right: 10px">@match.AwayTeam</span>
+                            <img src="~/Assets/images/logo/@match.LogoAwayTeam" alt="Logo" style="width: 30px; height: 30px" />
+                        </td>
                         <th>
-                            <a asp-controller="Matches" asp-action="Detail" asp-route-id="@match.MatchId">
+                            <a asp-controller="Matches" asp-action="Detail" asp-route-id="@match.MatchId" asp-route-pageNumber="@Model.PageNumber">
                                 <span class="mdi mdi-format-list-bulleted"></span>
                             </a>
-                            <a asp-controller="Matches" asp-action="Edit" asp-route-id="@match.MatchId">
+                            <a asp-controller="Matches" asp-action="Edit" asp-route-id="@match.MatchId" asp-route-pageNumber="@Model.PageNumber">
                                 <span class="mdi mdi-pencil"></span>
                             </a>
                         </th>
@@ -96,25 +122,43 @@
 </div>
 
 <script>
-    // Lấy ô tìm kiếm và bảng câu lạc bộ
-    const searchInputMatch = document.getElementById("searchInputMatch");
-    const clubsTable = document.getElementById("clubsTable");
-    const clubRows = clubsTable.getElementsByClassName("clubRow");
+    $(document).ready(function () {
+        $('#searchInputMatch, #searchInputRound').on('input', function () {
+            const matchKeyword = $('#searchInputMatch').val();
+            const roundKeyword = $('#searchInputRound').val();
 
-    // Lắng nghe sự kiện khi người dùng gõ vào ô tìm kiếm
-    searchInputMatch.addEventListener("input", function () {
-        const filter = searchInputMatch.value.toLowerCase();
+            $.ajax({
+                url: '/Matches/SearchMatches',
+                type: 'GET',
+                data: { matchKeyword: matchKeyword, roundKeyword: roundKeyword },
+                success: function (data) {
+                    const tableBody = $('#clubsTable');
+                    tableBody.empty(); // Xóa nội dung cũ
 
-        // Duyệt qua tất cả các dòng trong bảng và kiểm tra từ khóa
-        for (let i = 0; i < clubRows.length; i++) {
-            const clubName = clubRows[i].getElementsByTagName("td")[1].textContent.toLowerCase();
-
-            // Nếu tên câu lạc bộ chứa từ khóa thì hiển thị, nếu không thì ẩn
-            if (clubName.includes(filter)) {
-                clubRows[i].style.display = "";
-            } else {
-                clubRows[i].style.display = "none";
-            }
-        }
+                    data.forEach((match, index) => {
+                        const row = `
+                            <tr class="clubRow">
+                                <td>${match.Index}</td>
+                                <td>${match.HomeTeam}</td>
+                                <td>${match.Round}</td>
+                                <td>${match.AwayTeam}</td>
+                                <td>
+                                    <a href="/Matches/Detail/${match.MatchId}">
+                                        <span class="mdi mdi-format-list-bulleted"></span>
+                                    </a>
+                                    <a href="/Matches/Edit/${match.MatchId}">
+                                        <span class="mdi mdi-pencil"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        `;
+                        tableBody.append(row);
+                    });
+                },
+                error: function () {
+                    alert("Failed to load matches.");
+                }
+            });
+        });
     });
 </script>

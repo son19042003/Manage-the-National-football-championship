@@ -38,11 +38,47 @@
                         </div>
                     </ul>
                 </li>
-                <li class="@(ViewData["ActiveTab"] != null && (ViewData["ActiveTab"] as string) == "Matches" ? "active" : "")">
-                    <a class="sidenav-item-link" asp-area="Admin" asp-controller="Matches" asp-action="Index">
+                <li class="has-sub @(ViewData["ActiveTab"] != null && ((ViewData["ActiveTab"] as string) == "Matches" || (ViewData["ActiveTab"] as string) == "Goals") ? "active expand" : "" )">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse"
+                        data-target="#email" aria-expanded="false" aria-controls="email">
                         <i class="mdi mdi-calendar-check"></i>
-                        <span class="nav-text">Matches</span>
+                        <span class="nav-text">Matches</span> <b class="caret"></b>
                     </a>
+                    <ul class="collapse @(ViewData["ActiveTab"] != null && ((ViewData["ActiveTab"] as string) == "Matches" || (ViewData["ActiveTab"] as string) == "Goals") ? "show" : "")" id="email" data-parent="#sidebar-menu">
+                        <div class="sub-menu">
+                            <li class="@(ViewData["ActiveTab"] != null && (ViewData["ActiveTab"] as string) == "Matches" ? "active" : "")">
+                                <a class="sidenav-item-link" asp-area="Admin" asp-controller="Matches" asp-action="Index">
+                                    <span class="nav-text">Match Results</span>
+                                </a>
+                            </li>
+                            <li class="@(ViewData["ActiveTab"] != null && (ViewData["ActiveTab"] as string) == "Goals" ? "active" : "")">
+                                <a class="sidenav-item-link" asp-area="Admin" asp-controller="Goals" asp-action="Index">
+                                    <span class="nav-text">Goals</span>
+                                </a>
+                            </li>
+                        </div>
+                    </ul>
+                </li>
+                <li class="has-sub @(ViewData["ActiveTab"] != null && ((ViewData["ActiveTab"] as string) == "Standing" || (ViewData["ActiveTab"] as string) == "Stats") ? "active expand" : "" )">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse"
+                       data-target="#charts" aria-expanded="false" aria-controls="charts">
+                        <i class="mdi mdi-chart-line"></i>
+                        <span class="nav-text">Rankings</span> <b class="caret"></b>
+                    </a>
+                    <ul class="collapse @(ViewData["ActiveTab"] != null && ((ViewData["ActiveTab"] as string) == "Standing" || (ViewData["ActiveTab"] as string) == "Stats") ? "show" : "")" id="charts" data-parent="#sidebar-menu">
+                        <div class="sub-menu">
+                        <li class="@(ViewData["ActiveTab"] != null && (ViewData["ActiveTab"] as string) == "Standing" ? "active" : "")">
+                            <a class="sidenav-item-link" asp-area="Admin" asp-controller="Standing" asp-action="Index">
+                                <span class="nav-text">Standing</span>
+                            </a>
+                        </li>
+                        <li class="@(ViewData["ActiveTab"] != null && (ViewData["ActiveTab"] as string) == "Stats" ? "active" : "")">
+                            <a class="sidenav-item-link" asp-area="Admin" asp-controller="Stats" asp-action="Index">
+                                <span class="nav-text">Stats</span>
+                            </a>
+                        </li>
+                        </div>
+                    </ul>
                 </li>
                 <li class="@(ViewData["ActiveTab"] != null && (ViewData["ActiveTab"] as string) == "Accounts" ? "active" : "")">
                     <a class="sidenav-item-link" asp-area="Admin" asp-controller="Accounts" asp-action="Index">
@@ -78,7 +114,7 @@
                     </a>
                 </li>
                 <li class="@(ViewData["ActiveTab"] != null && (ViewData["ActiveTab"] as string) == "GoalTypes" ? "active" : "")">
-                    <a class="sidenav-item-link" asp-area="Admin" asp-controller="GoalTypes" asp-action="Index">
+                    <a class="sidenav-item-link" asp-area="Admin" asp-controller="TypeGoals" asp-action="Index">
                         <i class="mdi mdi-soccer"></i>
                         <span class="nav-text">Goal Types</span>
                     </a>

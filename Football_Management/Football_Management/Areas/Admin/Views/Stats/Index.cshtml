@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Football_Management.Areas.Admin.ViewModels.Stats.IndexViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Home </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-area="admin" asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item">  <a>Rankings </a> </li>
+        <li class="breadcrumb-item active" aria-current="page">Stats </li>
+    </ol>
+</nav>
+
+<form asp-controller="Stats" asp-action="ResetStats" method="post">
+    <button type="submit" class="btn btn-primary">Reset stats</button>
+</form>
+
+<div class="card card-default">
+    <div class="card-body">
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger">@TempData["Error"]</div>
+        }
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success">@TempData["Success"]</div>
+        }
+        <table class="table table-light">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Player</th>
+                    <th scope="col">Club</th>
+                    <th scope="col">Goals</th>
+                    <th scope="col">Other</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var player in Model)
+                {
+                    <tr>
+                        <td scope="row">@player.Index</td>
+                        <td>@player.PlayerName</td>
+                        <td>
+                            <img src="~/Assets/images/logo/@player.LogoUrl" alt="Logo" style="width: 30px; height: 30px" />
+                            <span style="margin-left: 10px">@player.ClubName</span>
+                        </td>
+                        <td>@player.Goals</td>
+                        <th>
+                            <a asp-controller="Stats" asp-action="Detail" asp-route-id="@player.PlayerId">
+                                <span class="mdi mdi-format-list-bulleted"></span>
+                            </a>
+                        </th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

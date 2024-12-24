@@ -1,0 +1,137 @@
+﻿@model Football_Management.Areas.Admin.ViewModels.Players.EditViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Home </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item">  <a>Team </a> </li>
+        <li class="breadcrumb-item active" aria-current="page">Players </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item">  <a>Team </a> </li>
+        <li class="breadcrumb-item">
+            <a asp-controller="Players" asp-action="Index" asp-route-pageNumber="@ViewData["PageNumber"]">Players  </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Edit </li>
+    </ol>
+</nav>
+
+<div class="card card-default">
+    <div class="card-body">
+        <h2>Player: @Model.FirstName @Model.LastName</h2>
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="PlayerId" />
+            <input type="hidden" asp-for="PageNumber" />
+            <div class="form-group">
+                <label asp-for="FirstName">First name</label>
+                <input class="form-control" asp-for="FirstName">
+                <span class="mt-2 d-block" asp-validation-for="FirstName"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName">Last name</label>
+                <input class="form-control" asp-for="LastName">
+                <span class="mt-2 d-block" asp-validation-for="LastName"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Birthday">Birthday</label>
+                <input type="date" class="form-control" asp-for="Birthday">
+                <span class="mt-2 d-block" asp-validation-for="Birthday"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Height">Height (cm)</label>
+                <input class="form-control" asp-for="Height">
+                <span class="mt-2 d-block" asp-validation-for="Height"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nationality">Nationality</label>
+                <input class="form-control" asp-for="Nationality">
+                <span class="mt-2 d-block" asp-validation-for="Nationality"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DomesticPlayer">Domestic Player?</label>
+                <label asp-for="DomesticPlayer" class="switch switch-primary switch-pill form-control-label mr-2">
+                    <input asp-for="DomesticPlayer" type="checkbox" disabled="disabled" class="switch-input form-check-input">
+                    <span asp-validation-for="DomesticPlayer" class="switch-label"></span>
+                    <span asp-validation-for="DomesticPlayer" class="switch-handle"></span>
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Number">Number</label>
+                <input class="form-control" asp-for="Number">
+                <span class="mt-2 d-block" asp-validation-for="Number"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Position">Position</label>
+                <select asp-for="Position" asp-items="Model.Positions" class="form-control" id="exampleFormControlSelect12"></select>
+                <span class="mt-2 d-block" asp-validation-for="Position"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClubId">Club</label>
+                <select asp-for="ClubId" class="form-control" asp-items="Model.Clubs" id="exampleFormControlSelect12"></select>
+                <span class="mt-2 d-block" asp-validation-for="ClubId"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LinkFb">Link Facebook</label>
+                <input class="form-control" asp-for="LinkFb">
+                <span class="mt-2 d-block" asp-validation-for="LinkFb"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LinkIg">Link Instagram</label>
+                <input class="form-control" asp-for="LinkIg">
+                <span class="mt-2 d-block" asp-validation-for="LinkIg"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AvatarFile">Upload Avatar</label>
+                <input class="form-control" asp-for="AvatarFile" type="file" name="AvatarFile" accept="image/jpeg, image/png, image/gif">
+                <span class="mt-2 d-block" asp-validation-for="AvatarFile"></span>
+            </div>
+            @if (!string.IsNullOrEmpty(Model.AvatarUrl))
+            {
+                <div class="form-group">
+                    <p>Current Avatar:</p>
+                    <img src="~/Assets/images/player/@Model.AvatarUrl" alt="Avatar" width="100px" />
+                </div>
+            }
+            <div class="form-group">
+                <label asp-for="IsInClub">Is in club?</label>
+                <label asp-for="IsInClub" class="switch switch-primary switch-pill form-control-label mr-2">
+                    <input asp-for="IsInClub" type="checkbox" class="switch-input form-check-input">
+                    <span asp-validation-for="IsInClub" class="switch-label"></span>
+                    <span asp-validation-for="IsInClub" class="switch-handle"></span>
+                </label>
+            </div>
+            <div class="form-footer mt-6">
+                <button type="submit" class="btn btn-primary btn-pill">Submit</button>
+                <a class="btn btn-light btn-pill" asp-controller="Players" asp-action="Index" asp-route-pageNumber="@ViewData["PageNumber"]">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.querySelector("form").addEventListener("submit", function (e) {
+        const fileInput = document.querySelector("input[type='file']");
+        const file = fileInput.files[0];
+        const allowedExtensions = ["image/jpeg", "image/png", "image/gif"];
+
+        if (file && !allowedExtensions.includes(file.type)) {
+            e.preventDefault();
+            alert("Only JPEG, PNG, and GIF files are allowed.");
+        }
+    });
+</script>

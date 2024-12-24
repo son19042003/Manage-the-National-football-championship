@@ -1,0 +1,70 @@
+﻿@model Football_Management.Areas.Admin.ViewModels.TypeGoals.DeleteViewModel
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Home </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Goal types </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item">
+            <a asp-controller="TypeGoals" asp-action="Index">Goal types  </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Delete </li>
+    </ol>
+</nav>
+
+<div class="card card-default">
+    <div class="card-body">
+        <h3 class="text-danger" style="margin-bottom: 10px">Are you sure you want to delete the following goal type?</h3>
+        <table class="table table-light">
+            <thead>
+                <tr>
+                    <th scope="col">Goal type name:</th>
+                    <th scope="col">@Model.TypeGoalName</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">Goal type id:</td>
+                    <td>@Model.TypeGoalId</td>
+                </tr>
+                <tr>
+                    <td scope="row">Goal type name:</td>
+                    <td>@Model.TypeGoalName</td>
+                </tr>
+                <tr>
+                    <td scope="row">Goal type description:</td>
+                    <td>@Model.TypeGoalDescription</td>
+                </tr>
+            </tbody>
+        </table>
+        <form style="margin-top: 15px" method="post" asp-controller="TypeGoals" asp-action="Delete">
+            <input type="hidden" name="id" value="@Model.TypeGoalId" />
+            <label class="text-danger" for="ConfirmDelete">Confirm Delete?</label>
+            <div class="form-check d-inline-block mr-3 mb-3">
+                <input class="form-check-input" type="checkbox" id="ConfirmDelete" name="ConfirmDelete" value="true" />
+                <label class="form-check-label" for="ConfirmDelete">Yes, I want to delete this goal type.</label>
+            </div>
+
+            <div class="form-footer mt-6">
+                <button type="submit" class="mb-1 btn btn-pill btn-danger">Submit</button>
+                <a class="btn btn-light btn-pill" asp-controller="TypeGoals" asp-action="Index">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

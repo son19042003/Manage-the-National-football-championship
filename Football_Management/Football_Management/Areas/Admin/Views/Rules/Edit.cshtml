@@ -1,0 +1,63 @@
+﻿@model Football_Management.Areas.Admin.ViewModels.Rules.EditViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Home </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Rule </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item">
+            <a asp-controller="Rules" asp-action="Index">Rule  </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Edit </li>
+    </ol>
+</nav>
+
+<div class="card card-default">
+    <div class="card-body">
+        <h3>Edit rule of tournament</h3>
+        <form asp-action="Edit" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="RuleId" />
+            <div class="form-group">
+                <label asp-for="MinAge">Min age</label>
+                <input class="form-control" asp-for="MinAge">
+                <span class="mt-2 d-block" asp-validation-for="MinAge"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MinPlayer">Min player</label>
+                <input class="form-control" asp-for="MinPlayer">
+                <span class="mt-2 d-block" asp-validation-for="MinPlayer"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaxPlayer">Max player</label>
+                <input class="form-control" asp-for="MaxPlayer">
+                <span class="mt-2 d-block" asp-validation-for="MaxPlayer"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaxForeignPlayers">Max foreign players</label>
+                <input class="form-control" asp-for="MaxForeignPlayers">
+                <span class="mt-2 d-block" asp-validation-for="MaxForeignPlayers"></span>
+            </div>
+            <div class="form-footer mt-6">
+                <button type="submit" class="btn btn-primary btn-pill">Submit</button>
+                <a class="btn btn-light btn-pill" asp-controller="Rules" asp-action="Index">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

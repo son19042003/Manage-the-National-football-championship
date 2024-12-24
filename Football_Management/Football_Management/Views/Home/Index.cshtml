@@ -1,5 +1,32 @@
-﻿@{
+﻿@model Football_Management.ViewModels.Home.HomeViewModel
+@{
     ViewData["Title"] = "Home Page";
+}
+
+@functions {
+    public static string GetOrdinalSuffix(int day)
+    {
+        if (day % 100 >= 11 && day % 100 <= 13)
+        {
+            return $"{day}th";
+        }
+        else if (day % 10 == 1)
+        {
+            return $"{day}st";
+        }
+        else if (day % 10 == 2)
+        {
+            return $"{day}nd";
+        }
+        else if (day % 10 == 3)
+        {
+            return $"{day}rd";
+        }
+        else
+        {
+            return $"{day}th";
+        }
+    }
 }
 
 <!--======= Fixtures ========-->
@@ -16,155 +43,56 @@
                                     <h4>Matchweek</h4>
                                 </li>
                                 <!-- Match -->
-                                <li class="schedule-details">
-                                    <h5 style="text-align: center;">23th November</h5>
-                                    <a href="#" style="text-align: center;">
-                                        <div class="block">
-                                            <!-- home -->
-                                            <div class="speaker">
-                                                <span class="name">Samanta</span>
-                                                <img src=""
-                                                     alt="home-club">
+                                @{
+                                    DateOnly? previousDate = null;
+                                }
+                                @foreach (var match in Model.NextRoundMatches)
+                                {
+                                    <li class="schedule-details">
+                                        @if (previousDate != match.DateStart)
+                                        {
+                                            <h5 style="text-align: center;">
+                                                @GetOrdinalSuffix(@match.DateStart.Day) @match.DateStart.ToString("MMMM", new System.Globalization.CultureInfo("en-US"))
+                                            </h5>
+                                        }
+                                        <a href="#" style="text-align: center;">
+                                            <div class="block">
+                                                <!-- home -->
+                                                <div class="speaker">
+                                                    <img src="~/Assets/images/logo/@match.LogoHome"
+                                                         alt="home-club" style="width: 40px; height: 40px">
+                                                    <span class="name">@match.HomeTeam</span>
+                                                </div>
+                                                <!-- time -->
+                                                @if (match.Status == "Full-time")
+                                                {
+                                                    <div class="time">
+                                                        <span class="time">@match.GoalsH - @match.GoalsA</span>
+                                                    </div>
+                                                }
+                                                else if (match.Status == "Delayed")
+                                                {
+                                                    <div class="time">
+                                                        <span class="time">@match.Status</span>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="time">
+                                                        <span class="time">@match.TimeStart</span>
+                                                    </div>
+                                                }
+                                                <!-- away -->
+                                                <div class="speaker">
+                                                    <span class="name">@match.AwayTeam</span>
+                                                    <img src="~/Assets/images/logo/@match.LogoAway"
+                                                         alt="away-club" style="width: 40px; height: 40px">
+                                                </div>
                                             </div>
-                                            <!-- time -->
-                                            <div class="time">
-                                                <!-- <span class="time">23th November</span> <br> -->
-                                                <span class="time">18:30</span>
-                                            </div>
-                                            <!-- away -->
-                                            <div class="speaker">
-                                                <img src=""
-                                                     alt="away-club">
-                                                <span class="name">Samanta</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <!-- Match -->
-                                <li class="schedule-details">
-                                    <h5 style="text-align: center;">23th November</h5>
-                                    <a href="#" style="text-align: center;">
-                                        <div class="block">
-                                            <!-- home -->
-                                            <div class="speaker">
-                                                <span class="name">Samanta</span>
-                                                <img src=""
-                                                     alt="home-club">
-                                            </div>
-                                            <!-- time -->
-                                            <div class="time">
-                                                <!-- <span class="time">23th November</span> <br> -->
-                                                <span class="time">18:30</span>
-                                            </div>
-                                            <!-- away -->
-                                            <div class="speaker">
-                                                <img src=""
-                                                     alt="away-club">
-                                                <span class="name">Samanta</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <!-- Match -->
-                                <li class="schedule-details">
-                                    <h5 style="text-align: center;">23th November</h5>
-                                    <a href="#" style="text-align: center;">
-                                        <div class="block">
-                                            <!-- home -->
-                                            <div class="speaker">
-                                                <span class="name">Samanta</span>
-                                                <img src=""
-                                                     alt="home-club">
-                                            </div>
-                                            <!-- time -->
-                                            <div class="time">
-                                                <!-- <span class="time">23th November</span> <br> -->
-                                                <span class="time">18:30</span>
-                                            </div>
-                                            <!-- away -->
-                                            <div class="speaker">
-                                                <img src=""
-                                                     alt="away-club">
-                                                <span class="name">Samanta</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <!-- Match -->
-                                <li class="schedule-details">
-                                    <h5 style="text-align: center;">23th November</h5>
-                                    <a href="#" style="text-align: center;">
-                                        <div class="block">
-                                            <!-- home -->
-                                            <div class="speaker">
-                                                <span class="name">Samanta</span>
-                                                <img src=""
-                                                     alt="home-club">
-                                            </div>
-                                            <!-- time -->
-                                            <div class="time">
-                                                <!-- <span class="time">23th November</span> <br> -->
-                                                <span class="time">18:30</span>
-                                            </div>
-                                            <!-- away -->
-                                            <div class="speaker">
-                                                <img src=""
-                                                     alt="away-club">
-                                                <span class="name">Samanta</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <!-- Match -->
-                                <li class="schedule-details">
-                                    <h5 style="text-align: center;">23th November</h5>
-                                    <a href="#" style="text-align: center;">
-                                        <div class="block">
-                                            <!-- home -->
-                                            <div class="speaker">
-                                                <span class="name">Samanta</span>
-                                                <img src=""
-                                                     alt="home-club">
-                                            </div>
-                                            <!-- time -->
-                                            <div class="time">
-                                                <!-- <span class="time">23th November</span> <br> -->
-                                                <span class="time">18:30</span>
-                                            </div>
-                                            <!-- away -->
-                                            <div class="speaker">
-                                                <img src=""
-                                                     alt="away-club">
-                                                <span class="name">Samanta</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <!-- Match -->
-                                <li class="schedule-details">
-                                    <h5 style="text-align: center;">23th November</h5>
-                                    <a href="#" style="text-align: center;">
-                                        <div class="block">
-                                            <!-- home -->
-                                            <div class="speaker">
-                                                <span class="name">Samanta</span>
-                                                <img src=""
-                                                     alt="home-club">
-                                            </div>
-                                            <!-- time -->
-                                            <div class="time">
-                                                <!-- <span class="time">23th November</span> <br> -->
-                                                <span class="time">18:30</span>
-                                            </div>
-                                            <!-- away -->
-                                            <div class="speaker">
-                                                <img src=""
-                                                     alt="away-club">
-                                                <span class="name">Samanta</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
+                                        </a>
+                                    </li>
+                                    previousDate = match.DateStart;
+                                }
                             </ul>
                         </div>
                     </div>
@@ -177,66 +105,42 @@
 <!--====================    News Posts    =======================-->
 <section class="news section">
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-title">
-                    <h3><span class="alternate">Last News</span></h3>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-8 col-10 m-auto">
-                <div class="blog-post">
-                    <div class="post-thumb">
-                        <a href="news-single.html">
-                            <img src="~/Assets/images/news/post-thumb-one.jpg" alt="post-image" class="img-fluid">
-                        </a>
-                    </div>
-                    <div class="post-content">
-                        <div class="date">
-                            <h4>20<span>May</span></h4>
-                        </div>
-                        <div class="post-title">
-                            <h2><a href="news-single.html">Elementum purus id ultrices.</a></h2>
-                        </div>
+        @if (Model.LatestNews != null)
+        {
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title">
+                        <h3><span class="alternate">Last News</span></h3>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 col-sm-8 col-10 m-auto">
-                <div class="blog-post">
-                    <div class="post-thumb">
-                        <a href="news-single.html">
-                            <img src="~/Assets/images/news/post-thumb-two.jpg" alt="post-image" class="img-fluid">
-                        </a>
-                    </div>
-                    <div class="post-content">
-                        <div class="date">
-                            <h4>20<span>May</span></h4>
-                        </div>
-                        <div class="post-title">
-                            <h2><a href="news-single.html">Elementum purus id ultrices.</a></h2>
-                        </div>
+            <div class="row">
+                @foreach (var news in Model.LatestNews)
+                {
 
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 m-md-auto col-sm-8 col-10 m-auto">
-                <div class="blog-post">
-                    <div class="post-thumb">
-                        <a href="news-single.html">
-                            <img src="~/Assets/images/news/post-thumb-three.jpg" alt="post-image" class="img-fluid">
-                        </a>
-                    </div>
-                    <div class="post-content">
-                        <div class="date">
-                            <h4>20<span>May</span></h4>
+                    <div class="col-lg-4 col-md-6 col-sm-8 col-10 m-auto">
+                        <div class="blog-post">
+                            <div class="post-thumb">
+                                <a href="news-single.html">
+                                    <img src="~/Assets/images/news/thumbnail/@news.Thumbnail" alt="post-image" class="img-fluid">
+                                </a>
+                            </div>
+                            <div class="post-content">
+                                <div class="date">
+                                    <h4>
+                                        @GetOrdinalSuffix(news.DateUpdate.Day)
+                                        <span>@news.DateUpdate.ToString("MMM", new System.Globalization.CultureInfo("en-US"))</span>
+                                    </h4>
+                                </div>
+                                <div class="post-title">
+                                    <h2><a href="news-single.html">@news.Title</a></h2>
+                                </div>
+                            </div>
                         </div>
-                        <div class="post-title">
-                            <h2><a href="news-single.html">Elementum purus id ultrices.</a></h2>
-                        </div>
                     </div>
-                </div>
+
+                }
             </div>
-        </div>
+        }
     </div>
 </section>

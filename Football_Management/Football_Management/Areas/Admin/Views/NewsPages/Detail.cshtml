@@ -1,0 +1,92 @@
+﻿@model Football_Management.Areas.Admin.ViewModels.NewsPages.DetailViewModel
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Home </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item">  <a>Pages </a> </li>
+        <li class="breadcrumb-item active" aria-current="page">News pages </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item">  <a>Pages </a> </li>
+        <li class="breadcrumb-item">
+            <a asp-controller="NewsPages" asp-action="Index" asp-route-pageNumber="@ViewData["PageNumber"]">News pages  </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Detail </li>
+    </ol>
+</nav>
+
+<div class="card card-default">
+    <div class="card-body">
+        <table class="table table-light">
+            <thead>
+                <tr>
+                    <th scope="col">News id:</th>
+                    <th scope="col">@Model.NewsId</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">Title:</td>
+                    <td>@Model.Title</td>
+                </tr>
+                <tr>
+                    <td scope="row">Date updated:</td>
+                    <td>@Model.DateUpdated</td>
+                </tr>
+                <tr>
+                    <td scope="row">Type news:</td>
+                    <td>@Model.TypeNewsName</td>
+                </tr>
+                <tr>
+                    <td scope="row">View mode:</td>
+                    <td>
+                        @if (Model.Status == true)
+                        {
+                            <span class="badge badge-success">Shown</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-warning">Hidden</span>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="row">Thumbnail:</td>
+                    <td>
+                        <img src="~/Assets/images/news/thumbnail/@Model.ImageUrl" alt="Thumbnail" style="height: 60px; width: 60px" />
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="row">Image content:</td>
+                    <td>
+                        <img src="~/Assets/images/news/content/@Model.ImgContentUrl" alt="Image_content" style="height: 60px; width: 60px" />
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="row">Content:</td>
+                    <td>@Model.Content</td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="margin-top: 20px">
+            <a class="btn btn-sm btn-info" asp-action="Index" asp-route-pageNumber="@ViewData["PageNumber"]">Back to list</a> |
+            <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@Model.NewsId" asp-route-pageNumber="@ViewData["PageNumber"]">Edit</a> |
+            <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@Model.NewsId" asp-route-pageNumber="@ViewData["PageNumber"]">Delete</a>
+        </div>
+    </div>
+</div>

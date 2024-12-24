@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "FzfGDrYuKzgE87wzDCPF9lQYyoqQmBOOEvbH39SQXms=",
+  "Hash": "NjUwJZBGO3+TDcm1QnXIZPDXWhUgEy2IsSyRSNmt81s=",
   "Source": "Football_Management",
   "BasePath": "_content/Football_Management",
   "Mode": "Default",
@@ -22703,6 +22703,25 @@
       "OriginalItemSpec": "wwwroot\\Assets\\css\\style.css.map"
     },
     {
+      "Identity": "D:\\Projects\\Project1_layout\\Football_Management\\Football_Management\\wwwroot\\Assets\\images\\account\\default.png",
+      "SourceId": "Football_Management",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\Project1_layout\\Football_Management\\Football_Management\\wwwroot\\",
+      "BasePath": "_content/Football_Management",
+      "RelativePath": "Assets/images/account/default.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Assets\\images\\account\\default.png"
+    },
+    {
       "Identity": "D:\\Projects\\Project1_layout\\Football_Management\\Football_Management\\wwwroot\\Assets\\images\\background\\schedule-bg.png",
       "SourceId": "Football_Management",
       "SourceType": "Discovered",
@@ -23138,6 +23157,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Assets\\images\\logo_preview_rev_1.png"
+    },
+    {
+      "Identity": "D:\\Projects\\Project1_layout\\Football_Management\\Football_Management\\wwwroot\\Assets\\images\\news\\thumbnail\\default.jpg",
+      "SourceId": "Football_Management",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\Project1_layout\\Football_Management\\Football_Management\\wwwroot\\",
+      "BasePath": "_content/Football_Management",
+      "RelativePath": "Assets/images/news/thumbnail/default.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Assets\\images\\news\\thumbnail\\default.jpg"
     },
     {
       "Identity": "D:\\Projects\\Project1_layout\\Football_Management\\Football_Management\\wwwroot\\Assets\\images\\player\\default.png",

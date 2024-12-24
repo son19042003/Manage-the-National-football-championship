@@ -3,12 +3,8 @@
   "WorkspaceRootPath": "D:\\Projects\\Project1_layout\\Football_Management\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9C82F493-11A7-4C69-A979-4747E79AE28B}|Football_Management\\Football_Management.csproj|d:\\projects\\project1_layout\\football_management\\football_management\\areas\\admin\\views\\matches\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{9C82F493-11A7-4C69-A979-4747E79AE28B}|Football_Management\\Football_Management.csproj|solutionrelative:football_management\\areas\\admin\\views\\matches\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9C82F493-11A7-4C69-A979-4747E79AE28B}|Football_Management\\Football_Management.csproj|d:\\projects\\project1_layout\\football_management\\football_management\\areas\\admin\\controllers\\matchescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9C82F493-11A7-4C69-A979-4747E79AE28B}|Football_Management\\Football_Management.csproj|solutionrelative:football_management\\areas\\admin\\controllers\\matchescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9C82F493-11A7-4C69-A979-4747E79AE28B}|Football_Management\\Football_Management.csproj|d:\\projects\\project1_layout\\football_management\\football_management\\controllers\\clubscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C82F493-11A7-4C69-A979-4747E79AE28B}|Football_Management\\Football_Management.csproj|solutionrelative:football_management\\controllers\\clubscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -26,28 +22,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "MatchesController.cs",
-              "DocumentMoniker": "D:\\Projects\\Project1_layout\\Football_Management\\Football_Management\\Areas\\Admin\\Controllers\\MatchesController.cs",
-              "RelativeDocumentMoniker": "Football_Management\\Areas\\Admin\\Controllers\\MatchesController.cs",
-              "ToolTip": "D:\\Projects\\Project1_layout\\Football_Management\\Football_Management\\Areas\\Admin\\Controllers\\MatchesController.cs",
-              "RelativeToolTip": "Football_Management\\Areas\\Admin\\Controllers\\MatchesController.cs",
-              "ViewState": "AQIAADAAAAAAAAAAAAAYwBsAAAA4AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-02T08:59:45.934Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\Projects\\Project1_layout\\Football_Management\\Football_Management\\Areas\\Admin\\Views\\Matches\\Index.cshtml",
-              "RelativeDocumentMoniker": "Football_Management\\Areas\\Admin\\Views\\Matches\\Index.cshtml",
-              "ToolTip": "D:\\Projects\\Project1_layout\\Football_Management\\Football_Management\\Areas\\Admin\\Views\\Matches\\Index.cshtml",
-              "RelativeToolTip": "Football_Management\\Areas\\Admin\\Views\\Matches\\Index.cshtml",
-              "ViewState": "AQIAAF4AAAAAAAAAAAAowGkAAAAnAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-02T08:55:02.021Z",
+              "Title": "ClubsController.cs",
+              "DocumentMoniker": "D:\\Projects\\Project1_layout\\Football_Management\\Football_Management\\Controllers\\ClubsController.cs",
+              "RelativeDocumentMoniker": "Football_Management\\Controllers\\ClubsController.cs",
+              "ToolTip": "D:\\Projects\\Project1_layout\\Football_Management\\Football_Management\\Controllers\\ClubsController.cs",
+              "RelativeToolTip": "Football_Management\\Controllers\\ClubsController.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAABIAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-24T14:24:10.268Z",
               "EditorCaption": ""
             }
           ]

@@ -1,0 +1,105 @@
+﻿@model Football_Management.Areas.Admin.ViewModels.NewsPages.EditViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Home </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item">  <a>Pages </a> </li>
+        <li class="breadcrumb-item active" aria-current="page">News pages </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item">  <a>Pages </a> </li>
+        <li class="breadcrumb-item">
+            <a asp-controller="NewsPages" asp-action="Index" asp-route-pageNumber="@ViewData["PageNumber"]">News pages  </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Edit </li>
+    </ol>
+</nav>
+
+<div class="card card-default">
+    <div class="card-body">
+        <h2>Edit news</h2>
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="NewsId" />
+            <div class="form-group">
+                <label asp-for="Title">Title</label>
+                <input class="form-control" asp-for="Title">
+                <span class="mt-2 d-block" asp-validation-for="Title"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TypeNewsId">Type news</label>
+                <select asp-for="TypeNewsId" class="form-control" asp-items="Model.ListTypeNews" id="exampleFormControlSelect12"></select>
+                <span class="mt-2 d-block" asp-validation-for="TypeNewsId"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ThumbFile">Upload thumbnail</label>
+                <input class="form-control" asp-for="ThumbFile" type="file" name="ThumbFile" accept="image/jpeg, image/png, image/gif">
+                <span class="mt-2 d-block" asp-validation-for="ThumbFile"></span>
+            </div>
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <div class="form-group">
+                    <p>Current Thumbnail:</p>
+                    <img src="~/Assets/images/news/thumbnail/@Model.ImageUrl" alt="Thumbnail" width="100px" />
+                </div>
+            }
+            <div class="form-group">
+                <label asp-for="Content">Content</label>
+                <textarea class="form-control" asp-for="Content" id="exampleFormControlTextarea1" rows="5"></textarea>
+                <span class="mt-2 d-block" asp-validation-for="Content"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContentFile">Upload content image</label>
+                <input class="form-control" asp-for="ContentFile" type="file" name="ContentFile" accept="image/jpeg, image/png, image/gif">
+                <span class="mt-2 d-block" asp-validation-for="ContentFile"></span>
+            </div>
+            @if (!string.IsNullOrEmpty(Model.ImgContentUrl))
+            {
+                <div class="form-group">
+                    <p>Current Image content:</p>
+                    <img src="~/Assets/images/news/content/@Model.ImgContentUrl" alt="Image_content" width="100px" />
+                </div>
+            }
+            <div class="form-group">
+                <label asp-for="Status">View mode</label>
+                <label asp-for="Status" class="switch switch-primary switch-pill form-control-label mr-2">
+                    <input asp-for="Status" type="checkbox" class="switch-input form-check-input">
+                    <span asp-validation-for="Status" class="switch-label"></span>
+                    <span asp-validation-for="Status" class="switch-handle"></span>
+                </label>
+            </div>
+            <div class="form-footer mt-6">
+                <button type="submit" class="btn btn-primary btn-pill">Submit</button>
+                <a class="btn btn-light btn-pill" asp-controller="NewsPages" asp-action="Index" asp-route-pageNumber="@ViewData["PageNumber"]">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.querySelector("form").addEventListener("submit", function (e) {
+        const fileInput = document.querySelector("input[type='file']");
+        const file = fileInput.files[0];
+        const allowedExtensions = ["image/jpeg", "image/png", "image/gif"];
+
+        if (file && !allowedExtensions.includes(file.type)) {
+            e.preventDefault();
+            alert("Only JPEG, PNG, and GIF files are allowed.");
+        }
+    });
+</script>

@@ -11,7 +11,5 @@ public partial class TypeGoal
 
     public string? TypeGdes { get; set; }
 
-    public virtual ICollection<Match> MatchTypeGoalANavigations { get; set; } = new List<Match>();
-
-    public virtual ICollection<Match> MatchTypeGoalHNavigations { get; set; } = new List<Match>();
+    public virtual ICollection<Goal> Goals { get; set; } = new List<Goal>();
 }

@@ -1,0 +1,92 @@
+﻿@model Football_Management.Areas.Admin.ViewModels.Matches.DetailViewModel
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Home </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item">  <a>Matches </a> </li>
+        <li class="breadcrumb-item active" aria-current="page">Match results </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item">  <a>Matches </a> </li>
+        <li class="breadcrumb-item">
+            <a asp-controller="Matches" asp-action="Index" asp-route-pageNumber="@ViewData["PageNumber"]">Match results  </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Detail </li>
+    </ol>
+</nav>
+
+<div class="card card-default">
+    <div class="card-body">
+        <table class="table table-light">
+            <thead>
+                <tr>
+                    <th scope="col">Match's id:</th>
+                    <th scope="col">@Model.MatchId</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">Round:</td>
+                    <td>@Model.Round</td>
+                </tr>
+                <tr>
+                    <td scope="row">Home team:</td>
+                    <td>
+                        <img src="~/Assets/images/logo/@Model.LogoHomeTeam" alt="Logo" style="height: 60px; width: 60px" />
+                        <span style="margin-left: 10px">@Model.HomeTeam</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="row">Goals of home:</td>
+                    <td>@Model.GoalH</td>
+                </tr>
+                <tr>
+                    <td scope="row">Away team:</td>
+                    <td>
+                        <img src="~/Assets/images/logo/@Model.LogoAwayTeam" alt="Logo" style="height: 60px; width: 60px" />
+                        <span style="margin-left: 10px">@Model.AwayTeam</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="row">Goals of away:</td>
+                    <td>@Model.GoalA</td>
+                </tr>
+                <tr>
+                    <td scope="row">Stadium:</td>
+                    <td>@Model.Stadium</td>
+                </tr>
+                <tr>
+                    <td scope="row">Date start:</td>
+                    <td>@Model.DateStart</td>
+                </tr>
+                <tr>
+                    <td scope="row">Time start:</td>
+                    <td>@Model.TimeStart</td>
+                </tr>
+                <tr>
+                    <td scope="row">Status:</td>
+                    <td>@Model.Status</td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="margin-top: 20px">
+            <a class="btn btn-sm btn-info" asp-action="Index" asp-route-pageNumber="@ViewData["PageNumber"]">Back to list</a> |
+            <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@Model.MatchId" asp-route-pageNumber="@ViewData["PageNumber"]">Edit</a>
+        </div>
+    </div>
+</div>
