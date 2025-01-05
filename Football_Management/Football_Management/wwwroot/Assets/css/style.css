@@ -833,6 +833,10 @@ ul.pagination li a:focus,
     box-shadow: none;
 }
 
+.pagination li a:hover {
+    text-decoration: none;
+}
+
 /* table */
 .container {
     margin-top: 50px;
@@ -904,6 +908,10 @@ ul.pagination li a:focus,
     .tables {
         padding: 0;
     }
+}
+
+.table-details a:hover {
+    text-decoration: none;
 }
 
 /* fixtures */
@@ -1696,6 +1704,14 @@ ul.pagination .active a {
     }
 }
 
+.match-detail a:hover {
+    text-decoration: none;
+}
+
+.match-detail li {
+    border: none;
+}
+
 /* register players form */
 .form-container {
     max-width: 700px;
@@ -1710,4 +1726,103 @@ ul.pagination .active a {
 .required-label::after {
     content: " *";
     color: red;
+}
+
+/* Countdown Timer */
+#countdown {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+#countdown span {
+    color: #007bff;
+    margin: 0 5px;
+}
+
+/* Profile */
+.profile {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 50px;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 25px;
+    border: none;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.btn-logout {
+    background: linear-gradient(45deg, #ff4d4d, #ff0000);
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(255, 0, 0, 0.4);
+}
+
+.btn-logout:hover {
+    background: linear-gradient(45deg, #ff0000, #b30000);
+    box-shadow: 0 6px 12px rgba(255, 0, 0, 0.6);
+    transform: scale(1.05);
+    color: #fff
+}
+
+.btn-back {
+    background: linear-gradient(45deg, #6c757d, #495057);
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(108, 117, 125, 0.4);
+}
+
+.btn-back:hover {
+    background: linear-gradient(45deg, #495057, #343a40);
+    box-shadow: 0 6px 12px rgba(108, 117, 125, 0.6);
+    transform: scale(1.05);
+    color: #fff;
+}
+
+.btn-edit {
+    background: linear-gradient(45deg, #0088ff, #0056ab);
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(108, 117, 125, 0.4);
+}
+
+.btn-edit:hover {
+    background: linear-gradient(45deg, #0068cf, #003c77);
+    box-shadow: 0 6px 12px rgba(108, 117, 125, 0.6);
+    transform: scale(1.05);
+    color: #fff;
+}
+
+.btn-register-player {
+    background: linear-gradient(45deg, #ae00ff, #7600ac);
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(108, 117, 125, 0.4);
+}
+
+.btn-register-player:hover {
+    background: linear-gradient(45deg, #7100a6, #580081);
+    box-shadow: 0 6px 12px rgba(108, 117, 125, 0.6);
+    transform: scale(1.05);
+    color: #fff;
+}
+
+.btn-change-password {
+    background: linear-gradient(45deg, #ff7300, #c25700);
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(108, 117, 125, 0.4);
+}
+
+.btn-change-password:hover {
+    background: linear-gradient(45deg, #c25700, #a04800);
+    box-shadow: 0 6px 12px rgba(108, 117, 125, 0.6);
+    transform: scale(1.05);
+    color: #fff;
+}
+
+.contain-button {
+    text-align: center;
 }

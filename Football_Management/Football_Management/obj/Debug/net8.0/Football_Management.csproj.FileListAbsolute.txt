@@ -285,3 +285,10 @@ D:\Projects\Project1_layout\Football_Management\Football_Management\bin\Debug\ne
 D:\Projects\Project1_layout\Football_Management\Football_Management\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
 D:\Projects\Project1_layout\Football_Management\Football_Management\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
 D:\Projects\Project1_layout\Football_Management\Football_Management\bin\Debug\net8.0\X.PagedList.dll
+D:\Projects\Project1_layout\Football_Management\Football_Management\bin\Debug\net8.0\BCrypt.Net-Next.dll
+D:\Projects\Project1_layout\Football_Management\Football_Management\bin\Debug\net8.0\BouncyCastle.Crypto.dll
+D:\Projects\Project1_layout\Football_Management\Football_Management\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+D:\Projects\Project1_layout\Football_Management\Football_Management\bin\Debug\net8.0\MailKit.dll
+D:\Projects\Project1_layout\Football_Management\Football_Management\bin\Debug\net8.0\MimeKit.dll
+D:\Projects\Project1_layout\Football_Management\Football_Management\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
+D:\Projects\Project1_layout\Football_Management\Football_Management\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll

@@ -1,10 +1,13 @@
 ﻿using Football_Management.Areas.Admin.ViewModels;
 using Football_Management.Areas.Admin.ViewModels.Players;
 using Football_Management.Models;
+using Football_Management.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Elfie.Diagnostics;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.Linq;
 using static System.Reflection.Metadata.BlobBuilder;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -12,23 +15,42 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace Football_Management.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class PlayersController : Controller
     {
         private readonly FootballManagementContext _context;
+        private readonly IEmailService _emailService;
 
-        public PlayersController(FootballManagementContext context)
+        public PlayersController(FootballManagementContext context, IEmailService emailService)
         {
             _context = context;
+            _emailService = emailService;
         }
 
 
         [HttpGet]
-        public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 20)
+        public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 20, string clubId = "0")
         {
             ViewData["ActiveTab"] = "Players";
 
-            var players = await _context.Players
-                .Include(p => p.Club)
+            var clubs = await _context.Clubs
+                .Where(c => c.IsActive)
+                .Select(c => new ClubViewModel
+                {
+                    ClubId = c.ClubId,
+                    ClubName = c.ClubName
+                })
+                .ToListAsync();
+            clubs.Insert(0, new ClubViewModel { ClubId = "0", ClubName = "All" });
+
+            var playersQuery = _context.Players.Include(p => p.Club).AsQueryable();
+
+            if (!string.IsNullOrEmpty(clubId) && clubId != "0")
+            {
+                playersQuery = playersQuery.Where(p => p.ClubId.ToString() == clubId);
+            }
+
+            var players = await playersQuery
                 .OrderBy(p => p.ClubId)
                 .ThenByDescending(p => p.IsInClub)
                 .ThenBy(p => p.FirstName)
@@ -38,12 +60,13 @@ namespace Football_Management.Areas.Admin.Controllers
                     FirstName = p.FirstName,
                     LastName = p.LastName,
                     IsInClub = p.IsInClub,
-                    ClubName = p.Club.ClubName
+                    ClubName = p.Club.ClubName,
+                    ClubId = p.ClubId
                 })
                 .ToListAsync();
 
             int skip = (pageNumber - 1) * pageSize;
-            int totalPlayers = await _context.Players.CountAsync();
+            var totalPlayers = await playersQuery.CountAsync();
 
             var paginatedPlayers = players
                 .Skip(skip)
@@ -60,7 +83,9 @@ namespace Football_Management.Areas.Admin.Controllers
                 Items = paginatedPlayers,
                 PageNumber = pageNumber,
                 PageSize = pageSize,
-                TotalItems = totalPlayers
+                TotalItems = totalPlayers,
+                Clubs = clubs,
+                ClubId = clubId
             };
 
             return View(paginatedResult);
@@ -300,27 +325,49 @@ namespace Football_Management.Areas.Admin.Controllers
         //Create
         //GET
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(int id)
         {
             ViewData["ActiveTab"] = "Players";
 
-            var viewModel = new CreateViewModel
+            var registration = await _context.PlayerRegistrations.FindAsync(id);
+
+            if (registration == null)
             {
-                Clubs = await _context.Clubs
+                return NotFound();
+            }
+
+            var clubs = await _context.Clubs
                 .Where(c => c.IsActive)
                 .Select(c => new SelectListItem
                 {
                     Value = c.ClubId,
                     Text = c.ClubName
-                }).ToListAsync(),
+                }).ToListAsync();
 
-                Positions = new List<SelectListItem>
-                {
-                    new SelectListItem { Value = "Goalkeeper", Text = "Goalkeeper" },
-                    new SelectListItem { Value = "Defender", Text = "Defender" },
-                    new SelectListItem { Value = "Midfielder", Text = "Midfielder" },
-                    new SelectListItem { Value = "Forward", Text = "Forward" }
-                }
+            var positions = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "Goalkeeper", Text = "Goalkeeper" },
+                new SelectListItem { Value = "Defender", Text = "Defender" },
+                new SelectListItem { Value = "Midfielder", Text = "Midfielder" },
+                new SelectListItem { Value = "Forward", Text = "Forward" }
+            };
+
+            var viewModel = new CreateViewModel
+            {
+                FirstName = registration.FirstName,
+                LastName = registration.LastName,
+                Birthday = registration.Birthday,
+                Height = registration.Height,
+                Position = registration.Position,
+                Positions = positions,
+                Number = registration.Number,
+                Nationality = registration.Nationality,
+                LinkFb = registration.LinkFb,
+                LinkIg = registration.LinkIg,
+                AvatarUrl = registration.Avatar,
+                ClubId = registration.ClubId,
+                Clubs = clubs,
+                RegistrationId = registration.PlayerRegisId
             };
 
             return View(viewModel);
@@ -329,7 +376,7 @@ namespace Football_Management.Areas.Admin.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CreateViewModel viewModel)
+        public async Task<IActionResult> Create(CreateViewModel viewModel, int registrationId)
         {
             if (!ModelState.IsValid)
             {
@@ -373,9 +420,50 @@ namespace Football_Management.Areas.Admin.Controllers
                 p.ClubId == viewModel.ClubId &&
                 p.Number == viewModel.Number);
 
+            var registration = _context.PlayerRegistrations.Find(registrationId);
+            var userEmail = registration?.UserEmail;
+
             if (isShirtNumberTaken)
             {
                 ModelState.AddModelError("Number", "The shirt number is already taken by another player in this club.");
+
+                var subjectErr = "Player Registration Refused";
+                var bodyErr = $"Hello,\n\nYour player registration for {player.FirstName} {player.LastName} has been refused becasue shirt number is already taken by another player in this club.\n\nWe're sorry!";
+
+                await _emailService.SendAsync(userEmail ?? "", subjectErr, bodyErr);
+
+                viewModel.Clubs = await _context.Clubs
+                    .Where(c => c.IsActive)
+                    .Select(c => new SelectListItem
+                    {
+                        Value = c.ClubId,
+                        Text = c.ClubName
+                    })
+                    .ToListAsync();
+
+                viewModel.Positions = new List<SelectListItem>
+                {
+                    new SelectListItem { Value = "Goalkeeper", Text = "Goalkeeper" },
+                    new SelectListItem { Value = "Defender", Text = "Defender" },
+                    new SelectListItem { Value = "Midfielder", Text = "Midfielder" },
+                    new SelectListItem { Value = "Forward", Text = "Forward" }
+                };
+                return View(viewModel);
+            }
+
+            var countForeignPlayers = await _context.Players
+                .Where(p => p.ClubId == player.ClubId)
+                .CountAsync(p => p.TypePlayer == false);
+
+            var rule = await _context.Rules.FirstOrDefaultAsync();
+            if (rule != null && rule.MaxForeignPlayers <= countForeignPlayers)
+            {
+                ModelState.AddModelError("", "The maximum number of foreign players has been reached.");
+
+                var subjectErr = "Player Registration Refused";
+                var bodyErr = $"Hello,\n\nYour player registration for {player.FirstName} {player.LastName} has been refused becasue the maximum number of foreign players of your club has been reached..\n\nWe're sorry!";
+
+                await _emailService.SendAsync(userEmail ?? "", subjectErr, bodyErr);
 
                 viewModel.Clubs = await _context.Clubs
                     .Where(c => c.IsActive)
@@ -441,7 +529,18 @@ namespace Football_Management.Areas.Admin.Controllers
             }
 
             _context.Players.Add(player);
+
+            if (registration != null)
+            {
+                registration.IsProcessed = true;
+            }
+
             await _context.SaveChangesAsync();
+
+            var subject = "Player Registration Approved";
+            var body = $"Hello,\n\nYour player registration for {player.FirstName} {player.LastName} has been approved and added to our system.\n\nThank you!";
+
+            await _emailService.SendAsync(userEmail ?? "", subject, body);
 
             return RedirectToAction("Index");
         }

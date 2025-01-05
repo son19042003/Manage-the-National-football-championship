@@ -1,0 +1,82 @@
+﻿@model Football_Management.Areas.Admin.ViewModels.Home.DeleteViewModel
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Home </li>
+    </ol>
+</nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="home" asp-action="Index">Home  </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Delete </li>
+    </ol>
+</nav>
+
+<div class="card card-default">
+    <div class="card-body">
+        <h3 class="text-danger" style="margin-bottom: 10px">Are you sure you want to delete the following player registrations?</h3>
+        <table class="table table-light">
+            <thead>
+                <tr>
+                    <th scope="col">Player name:</th>
+                    <th scope="col">
+                        <img src="~/Assets/images/player/@Model.AvatarPath" alt="Avatar" style="height: 60px; width: 60px" />
+                        <span style="margin-left: 10px">@Model.Name</span>@Model.Name
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">Club:</td>
+                    <td>@Model.Club</td>
+                </tr>
+                <tr>
+                    <td scope="row">Date of birth:</td>
+                    <td>@Model.DateOfBirth</td>
+                </tr>
+                <tr>
+                    <td scope="row">Height:</td>
+                    <td>@Model.Height</td>
+                </tr>
+                <tr>
+                    <td scope="row">Position:</td>
+                    <td>@Model.Position</td>
+                </tr>
+                <tr>
+                    <td scope="row">Nationality:</td>
+                    <td>@Model.Nationality</td>
+                </tr>
+                <tr>
+                    <td scope="row">Shirt number:</td>
+                    <td>@Model.Number</td>
+                </tr>
+                <tr>
+                    <td scope="row">Link Facebook:</td>
+                    <td>@Model.LinkFb</td>
+                </tr>
+                <tr>
+                    <td scope="row">Link Instagram:</td>
+                    <td>@Model.LinkIg</td>
+                </tr>
+            </tbody>
+        </table>
+        <form style="margin-top: 15px" method="post" asp-controller="Home" asp-action="Delete">
+            <input type="hidden" name="id" value="@Model.PlayerRegisId" />
+            <label class="text-danger" for="ConfirmDelete">Confirm Delete?</label>
+            <div class="form-check d-inline-block mr-3 mb-3">
+                <input class="form-check-input" type="checkbox" id="ConfirmDelete" name="ConfirmDelete" value="true" />
+                <label class="form-check-label" for="ConfirmDelete">Yes, I want to delete this player registrations.</label>
+            </div>
+
+            <div class="form-footer mt-6">
+                <button type="submit" class="mb-1 btn btn-pill btn-danger">Submit</button>
+                <a class="btn btn-light btn-pill" asp-controller="Home" asp-action="Index">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

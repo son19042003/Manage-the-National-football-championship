@@ -59,7 +59,7 @@
                                         </h5>
                                     }
                                     <li class="schedule-details">
-                                        <a href="#" style="text-align: center;">
+                                        <a asp-controller="Fixtures" asp-action="Detail" asp-route-id="@match.MatchId" style="text-align: center;">
                                             <div class="block fixture">
                                                 <!-- home -->
                                                 <div class=" team">
@@ -133,7 +133,7 @@
                         const li = document.createElement('li');
                         li.classList.add('schedule-details');
                         li.innerHTML = `
-                                <a href="#" style="text-align: center;">
+                                <a href="/Fixtures/Detail/${match.matchId}" style="text-align: center;">
                                     <div class="block fixture">
                                         <!-- home -->
                                         <div class="team">

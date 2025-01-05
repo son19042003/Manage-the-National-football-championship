@@ -2,6 +2,7 @@
 {
     public class MatchViewModel
     {
+        public int MatchId { get; set; }
         public string? HomeTeam { get; set; }
         public string? LogoHome { get; set; }
         public string? AwayTeam { get; set; }

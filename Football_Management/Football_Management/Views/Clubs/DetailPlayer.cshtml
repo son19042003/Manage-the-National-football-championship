@@ -1,0 +1,66 @@
+﻿@model Football_Management.ViewModels.Clubs.DetailPlayerViewModel
+@{
+    ViewData["Title"] = "DetailPlayer";
+}
+
+<section class="page-title bg-title overlay-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="title">
+                    <h3>Player Detail</h3>
+                </div>
+                <ol class="breadcrumb justify-content-center p-0 m-0">
+                    <li class="breadcrumb-item"><a asp-controller="Clubs" asp-action="Squad" asp-route-id="@Model.ClubId">List Players</a></li>
+                    <li class="breadcrumb-item active">Player Details</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container mt-5 player-detail">
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <img src="~/Assets/images/player/@Model.Avatar" alt="Player" class="img-fluid img-player mb-3">
+            <h2>@Model.PlayerName</h2>
+            <h5>Shirt number: @Model.ShirtNumber</h5>
+            <p>Nationality: @Model.Nationality</p>
+            <div class="social-media mt-3">
+                <a href="@Model.LinkFb" target="_blank" class="btn btn-social">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a href="@Model.LinkIg" target="_blank" class="btn btn-social">
+                    <i class="fa fa-instagram"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-8 infor-player">
+            <h4>Player Detail</h4>
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th>Date of birth</th>
+                        <td>@Model.DateOfBirth (@Model.Age)</td>
+                    </tr>
+                    <tr>
+                        <th>Height</th>
+                        <td>@Model.Height cm</td>
+                    </tr>
+                    <tr>
+                        <th>Club</th>
+                        <td>@Model.ClubName</td>
+                    </tr>
+                    <tr>
+                        <th>Position</th>
+                        <td>@Model.Position</td>
+                    </tr>
+                    <tr>
+                        <th>Goals</th>
+                        <td>@Model.Goals</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

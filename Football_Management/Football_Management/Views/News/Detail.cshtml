@@ -1,0 +1,117 @@
+﻿@model Football_Management.ViewModels.News.DetailViewModel
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<!--========================    Page Title     =========================-->
+<section class="page-title bg-title overlay-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="title">
+                    <h3>News Details</h3>
+                </div>
+                <ol class="breadcrumb justify-content-center p-0 m-0">
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item active">News Details</li>
+                </ol>
+                <span>@Model.DetailNews?.DateUpdate.ToString("dd/MM/yyyy")</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+@functions {
+    public static string GetOrdinalSuffix(int day)
+    {
+        if (day % 100 >= 11 && day % 100 <= 13)
+        {
+            return $"{day}th";
+        }
+        else if (day % 10 == 1)
+        {
+            return $"{day}st";
+        }
+        else if (day % 10 == 2)
+        {
+            return $"{day}nd";
+        }
+        else if (day % 10 == 3)
+        {
+            return $"{day}rd";
+        }
+        else
+        {
+            return $"{day}th";
+        }
+    }
+}
+
+<!-- ========= News post ========== -->
+<section class="news section">
+    <div class="container">
+        <div class="row mt-30">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="block">
+                    <!-- Article -->
+                    <article class="blog-post single">
+                        @if (Model.DetailNews != null)
+                        {
+                            <div class="post-thumb">
+                                <img src="~/Assets/images/news/thumbnail/@Model.DetailNews.ThumnailUrl" alt="Thumnail" class="img-fluid">
+                            </div>
+                            <div class="post-content">
+                                <div class="date">
+                                    <h4>
+                                        @GetOrdinalSuffix(Model.DetailNews.DateUpdate.Day)
+                                        <span>@Model.DetailNews.DateUpdate.ToString("MMM", new System.Globalization.CultureInfo("en-US"))</span>
+                                    </h4>
+                                </div>
+                                <div class="post-title">
+                                    <h3>@Model.DetailNews.Title</h3>
+                                </div>
+
+                                <div class="post-details">
+                                    <p>@Model.DetailNews.Content</p>
+                                    <div class="quotes">
+                                        <blockquote>
+                                            <img src="~/Assets/images/news/@Model.DetailNews.ImageContent" style="width: -webkit-fill-available" />
+                                            <span>Image content</span>
+                                        </blockquote>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </article>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-10 mx-auto">
+                <div class="sidebar">
+                    <!-- Latest post -->
+                    <div class="widget latest-post">
+                        <h5 class="widget-header">Latest Post</h5>
+                        <!-- Post -->
+                        @if (Model.LatestNews != null)
+                        {
+                            @foreach (var news in Model.LatestNews)
+                            {
+                                <div class="media">
+                                    <img src="~/Assets/images/news/thumbnail/@news.ThumnailUrl" class="img-fluid" alt="post-thumb" style="width: 80px; height: 80px">
+                                    <div class="media-body">
+                                        <h6>
+                                            <a asp-controller="News" asp-action="Detail" asp-route-id="@news.NewsId">@news.Title</a>
+                                        </h6>
+                                        <p>
+                                            <span class="fa fa-calendar"></span>
+                                            @news.DateUpdate.Day @news.DateUpdate.ToString("MMM", new System.Globalization.CultureInfo("en-US")), @news.DateUpdate.Year
+                                        </p>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

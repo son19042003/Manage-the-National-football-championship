@@ -1,0 +1,44 @@
+﻿@model Football_Management.ViewModels.Account.ProfileViewModel
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="banner-account">
+    <h1>Your profile</h1>
+</div>
+
+<div class="container mt-5 profile">
+    <div class="d-flex align-items-center mb-4">
+        <img src="~/Assets/images/account/@Model.AvatarUrl" alt="User Avatar" class="rounded-circle" width="100" height="100">
+        <h3 style="margin-left: 10px" class="ms-3">@Model.Username</h3>
+    </div>
+
+    <div>
+        <p><strong>Name:</strong> @Model.Name</p>
+        <p><strong>Gender:</strong> @Model.Gender</p>
+        <p><strong>Day of birth:</strong> @Model.DayOfBirth</p>
+        <p><strong>Email:</strong> @Model.Email</p>
+        <p><strong>Phone number:</strong> @Model.PhoneNumber</p>
+    </div>
+
+    <div class="mt-4 contain-button">
+        <a asp-controller="Account" asp-action="Logout" class="btn btn-logout me-2">
+            <span>Logout</span>
+        </a>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-back">
+            <span>Back</span>
+        </a>
+        <a asp-controller="Account" asp-action="Edit" asp-route-id="@Model.AccountId" class="btn btn-edit">
+            <span>Edit</span>
+        </a>
+        <a asp-controller="Account" asp-action="ChangePassword" asp-route-id="@Model.AccountId" class="btn btn-change-password">
+            <span>Change password</span>
+        </a>
+        @if (Model.RoleName == "Member")
+        {
+            <a asp-controller="Account" asp-action="RegisterPlayer" class="btn btn-register-player">
+                <span>Register player</span>
+            </a>
+        }
+    </div>
+</div>

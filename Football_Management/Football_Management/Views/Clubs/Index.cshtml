@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Football_Management.ViewModels.Clubs.ClubsViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!--=============== list clubs =================-->
+<section class="section speakers bg-speaker overlay-lighter">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- Section Title -->
+                <div class="section-title white">
+                    <h3><span class="alternate">Clubs</span></h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var club in Model)
+            {
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="speaker-item">
+                        <div class="image">
+                            <img src="~/Assets/images/logo/@club.LogoUrl" alt="club" class="img-fluid">
+                            <div class="primary-overlay"></div>
+                            <div class="socials">
+                                <ul class="list-inline">
+                                    <li class="list-inline-item"><a href="@club.LinkFb"><i class="fa fa-facebook"></i></a></li>
+                                    <li class="list-inline-item"><a href="@club.LinkIg"><i class="fa fa-instagram"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="content text-center">
+                            <h5><a asp-controller="Clubs" asp-action="Squad" asp-route-id="@club.ClubId">@club.ClubName</a></h5>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

@@ -1,6 +1,7 @@
 ﻿using Football_Management.Areas.Admin.ViewModels;
 using Football_Management.Areas.Admin.ViewModels.Goals;
 using Football_Management.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using static System.Reflection.Metadata.BlobBuilder;
 namespace Football_Management.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class GoalsController : Controller
     {
         private readonly FootballManagementContext _context;

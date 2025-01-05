@@ -1,0 +1,102 @@
+﻿@model Football_Management.ViewModels.Account.RegisterPlayerViewModel
+@{
+    ViewData["Title"] = "RegisterPlayer";
+}
+<div class="banner-account">
+    <h1>Register Player</h1>
+</div>
+<div class="container form-container">
+    <form asp-action="RegisterPlayer" method="post" enctype="multipart/form-data">
+        <input asp-for="@Model.UserEmail" type="hidden" />
+        <input asp-for="@Model.IsProcessed" type="hidden" />
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="@Model.ClubId" class="required-label">Club:</label>
+                <select asp-for="@Model.ClubId" asp-items="@Model.Clubs" class="form-control">
+                </select>
+                <span class="mt-2 d-block" asp-validation-for="@Model.ClubId"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="@Model.FirstName" class="required-label">First name:</label>
+                <input asp-for="@Model.FirstName" type="text" class="form-control">
+                <span class="mt-2 d-block" asp-validation-for="@Model.FirstName"></span>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="@Model.LastName" for="lastName" class="required-label">Last name:</label>
+                <input asp-for="@Model.LastName" type="text" class="form-control">
+                <span class="mt-2 d-block" asp-validation-for="@Model.LastName"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="@Model.DateOfBirth" class="required-label">Date of birth:</label>
+                <input asp-for="@Model.DateOfBirth" type="date" class="form-control">
+                <span class="mt-2 d-block" asp-validation-for="@Model.DateOfBirth"></span>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="@Model.Position" class="required-label">Position:</label>
+                <select asp-for="@Model.Position" asp-items="@Model.Positions" class="form-control">
+                </select>
+                <span class="mt-2 d-block" asp-validation-for="@Model.Position"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="@Model.Number" class="required-label">Shirt number:</label>
+                <input asp-for="@Model.Number" class="form-control">
+                <span class="mt-2 d-block" asp-validation-for="@Model.Number"></span>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="@Model.Height" class="required-label">Height (cm):</label>
+                <input asp-for="@Model.Height" class="form-control">
+                <span class="mt-2 d-block" asp-validation-for="@Model.Height"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="@Model.Nationality" class="required-label">Nationality:</label>
+                <input asp-for="@Model.Nationality" class="form-control">
+                <span class="mt-2 d-block" asp-validation-for="@Model.Nationality"></span>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="@Model.LinkFb">Link Facebook:</label>
+                <input asp-for="@Model.LinkFb" type="url" class="form-control" id="facebookLink" name="facebookLink"
+                       placeholder="">
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="@Model.LinkIg">Link Instagram:</label>
+                <input asp-for="@Model.LinkIg" type="url" class="form-control" id="instagramLink" name="instagramLink"
+                       placeholder="">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="@Model.AvatarFile">Avatar:</label>
+            <input asp-for="@Model.AvatarFile" type="file" class="form-control-file" id="avatar" name="avatar" accept="image/*">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Send form</button>
+        <div class="login-link">
+            <a asp-controller="Account" asp-action="Profile" style="background-color: aqua; padding:10px; border-radius:10px">Back to your profile</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.querySelector("form").addEventListener("submit", function (e) {
+        const fileInput = document.querySelector("input[type='file']");
+        const file = fileInput.files[0];
+        const allowedExtensions = ["image/jpeg", "image/png", "image/gif"];
+
+        if (file && !allowedExtensions.includes(file.type)) {
+            e.preventDefault();
+            alert("Only JPEG, PNG, and GIF files are allowed.");
+        }
+    });
+</script>

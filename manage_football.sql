@@ -269,3 +269,31 @@ CREATE TABLE [dbo].[Rule](
 	[ruleId] ASC
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
+
+
+CREATE TABLE [dbo].[PlayerRegistration](
+	[playerRegisId] int IDENTITY(1,1) NOT NULL,
+	[firstName] varchar(50) NOT NULL,
+	[lastName] varchar(50) NOT NULL,
+	[birthday] date NOT NULL,
+	[height] float NOT NULL,
+	[nationality] varchar(50) NOT NULL,
+	[position] varchar(50) NOT NULL,
+	[number] int NOT NULL,
+	[avatar] varchar(255),
+	[linkFb] varchar(255),
+	[linkIg] varchar(255),
+	[clubId] char(10) NOT NULL,
+	[userEmail] varchar(100) NOT NULL,
+	[isProcessed] bit default 0
+ CONSTRAINT [PK_PlayerRegistration] PRIMARY KEY CLUSTERED 
+(
+	[playerRegisId] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+ALTER TABLE [dbo].[PlayerRegistration]
+ADD CONSTRAINT FK_PlayerRegistration_Club
+FOREIGN KEY ([clubId])
+REFERENCES [dbo].[Club]([clubId]);

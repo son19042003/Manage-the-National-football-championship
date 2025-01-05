@@ -1,5 +1,6 @@
 ﻿using Football_Management.Areas.Admin.ViewModels.Roles;
 using Football_Management.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Numerics;
@@ -7,6 +8,7 @@ using System.Numerics;
 namespace Football_Management.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class RolesController : Controller
     {
         private readonly FootballManagementContext _context;

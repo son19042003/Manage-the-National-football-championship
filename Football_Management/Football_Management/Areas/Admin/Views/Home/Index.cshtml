@@ -1,5 +1,47 @@
-﻿@{
+﻿@model IEnumerable<Football_Management.Areas.Admin.ViewModels.Home.RegistrationPlayersViewModel>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<h1>Management</h1>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Home </li>
+    </ol>
+</nav>
+
+<div class="card card-default">
+    <div class="card-body">
+        <table class="table table-light">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Club</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Postion</th>
+                    <th scope="col">Nationality</th>
+                    <th scope="col">Other</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var player in Model)
+                {
+                    <tr class="clubRow">
+                        <td scope="row">@player.Index</td>
+                        <td>@player.ClubName</td>
+                        <td>@player.Name</td>
+                        <td>@player.Position</td>
+                        <td>@player.Nationality</td>
+                        <th>
+                            <a asp-controller="Players" asp-action="Create" asp-route-id="@player.RegistrationPlayerId">
+                                <span class="mdi mdi-pencil"></span>
+                            </a>
+                            <a asp-controller="Home" asp-action="Delete" asp-route-id="@player.RegistrationPlayerId">
+                                <span class="mdi mdi-delete-outline"></span>
+                            </a>
+                        </th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

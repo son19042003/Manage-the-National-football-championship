@@ -20,13 +20,14 @@ namespace Football_Management.Controllers
 		{
             ViewData["ActiveTab"] = "Home";
 
-			var matches = await _context.Matches
+            var matches = await _context.Matches
                 .OrderBy(m => m.Round)
                 .ThenBy(m => m.DateStart)
                 .ThenBy(m => m.TimeStart)
                 .Take(10)
                 .Select(m => new MatchViewModel
 				{
+					MatchId = m.MatchId,
 					HomeTeam = m.HomeTeamNavigation.ClubName,
 					LogoHome = m.HomeTeamNavigation.Logo,
 					AwayTeam = m.AwayTeamNavigation.ClubName,
@@ -45,6 +46,7 @@ namespace Football_Management.Controllers
 				.Take(3)
 				.Select(n => new NewsViewModel
 				{
+					NewsId = n.NewsId,
 					Title = n.Title,
 					DateUpdate = n.DateU,
 					Thumbnail = n.Image
@@ -62,6 +64,7 @@ namespace Football_Management.Controllers
                 .Take(10)
                 .Select(m => new MatchViewModel
                 {
+					MatchId = m.MatchId,
                     HomeTeam = m.HomeTeamNavigation.ClubName,
                     LogoHome = m.HomeTeamNavigation.Logo,
                     AwayTeam = m.AwayTeamNavigation.ClubName,

@@ -35,6 +35,7 @@
         <h2>New player</h2>
         <form asp-action="Create" method="post" enctype="multipart/form-data">
             @Html.AntiForgeryToken()
+            <input asp-for="@Model.RegistrationId" type="hidden" />
             <div class="form-group">
                 <label asp-for="FirstName">First name</label>
                 <input class="form-control" asp-for="FirstName">
@@ -100,7 +101,7 @@
             </div>
             <div class="form-footer mt-6">
                 <button type="submit" class="btn btn-primary btn-pill">Submit</button>
-                <a class="btn btn-light btn-pill" asp-controller="Players" asp-action="Index">Cancel</a>
+                <a class="btn btn-light btn-pill" asp-controller="Home" asp-action="Index">Cancel</a>
             </div>
         </form>
     </div>

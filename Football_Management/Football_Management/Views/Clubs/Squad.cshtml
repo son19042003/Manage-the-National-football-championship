@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Football_Management.ViewModels.Clubs.SquadViewModel>
+@{
+    ViewData["Title"] = "Squad";
+}
+
+<!-- Banner Section -->
+<div class="banner">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <div class="logo-section d-flex align-items-center">
+                    @{
+                        int count = 0;
+                    }
+                    @foreach (var club in Model)
+                    {
+                        <img src="~/Assets/images/logo/@club.LogoUrl" alt="Club Logo" class="club-logo">
+                        <div class="club-info ms-3">
+                            <h1 class="club-name">@club.ClubName</h1>
+                            <p class="club-details">@club.Stadium</p>
+                        </div>
+                        count++;
+                        if (count == 1) break;
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Player List Section -->
+<div class="container mt-5 list-player">
+    @{
+        var groupedPlayers = Model.GroupBy(p => p.Position);
+    }
+    @foreach (var group in groupedPlayers)
+    {
+        <h2>@group.Key</h2>
+        <div class="row">
+            @foreach (var player in group)
+            {
+                <div class="col-lg-3 col-md-4 col-sm-6 col-12 single-player">
+                    <a asp-controller="Clubs" asp-action="DetailPlayer" asp-route-id="@player.PlayerId" class="player-card">
+                        <div class="card">
+                            <img src="~/Assets/images/player/@player.AvatarUrl" alt="Player" class="player-img">
+                            <div class="card-body">
+                                <h5 class="player-name">@player.PlayerName</h5>
+                                <p class="player-details">#@player.ShirtNumber - @player.Position</p>
+                                <p class="player-country">
+                                    @player.Nationality
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    }
+</div>

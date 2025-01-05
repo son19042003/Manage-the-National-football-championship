@@ -64,5 +64,38 @@ namespace Football_Management.Controllers
 
             return Json(matches);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Detail(int id)
+        {
+            ViewData["ActiveTab"] = "Fixtures";
+
+            var match = await _context.Matches
+                .Include(m => m.HomeTeamNavigation)
+                .Include(m => m.AwayTeamNavigation)
+                .Where(m => m.MatchId == id)
+                .FirstOrDefaultAsync();
+
+            if (match == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = new DetailMatchViewModel
+            {
+                MatchId = match.MatchId,
+                HomeTeamId = match.HomeTeam,
+                HomeTeam = match.HomeTeamNavigation.ClubName,
+                LogoHUrl = match.HomeTeamNavigation.Logo,
+                AwayTeamId = match.AwayTeam,
+                AwayTeam = match.AwayTeamNavigation.ClubName,
+                LogoAUrl = match.AwayTeamNavigation.Logo,
+                DateStart = match.DateStart,
+                TimeStart = match.TimeStart,
+                Stadium = match.HomeTeamNavigation.Stadium
+            };
+
+            return View(viewModel);
+        }
     }
 }

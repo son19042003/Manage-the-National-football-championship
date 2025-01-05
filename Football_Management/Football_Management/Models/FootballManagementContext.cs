@@ -27,6 +27,8 @@ public partial class FootballManagementContext : DbContext
 
     public virtual DbSet<Player> Players { get; set; }
 
+    public virtual DbSet<PlayerRegistration> PlayerRegistrations { get; set; }
+
     public virtual DbSet<Role> Roles { get; set; }
 
     public virtual DbSet<Rule> Rules { get; set; }
@@ -298,6 +300,63 @@ public partial class FootballManagementContext : DbContext
                 .HasForeignKey(d => d.ClubId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Players_Club");
+        });
+
+        modelBuilder.Entity<PlayerRegistration>(entity =>
+        {
+            entity.HasKey(e => e.PlayerRegisId);
+
+            entity.ToTable("PlayerRegistration");
+
+            entity.Property(e => e.PlayerRegisId).HasColumnName("playerRegisId");
+            entity.Property(e => e.Avatar)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("avatar");
+            entity.Property(e => e.Birthday).HasColumnName("birthday");
+            entity.Property(e => e.ClubId)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("clubId");
+            entity.Property(e => e.FirstName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("firstName");
+            entity.Property(e => e.Height).HasColumnName("height");
+            entity.Property(e => e.IsProcessed)
+                .HasDefaultValue(false)
+                .HasColumnName("isProcessed");
+            entity.Property(e => e.LastName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("lastName");
+            entity.Property(e => e.LinkFb)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("linkFb");
+            entity.Property(e => e.LinkIg)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("linkIg");
+            entity.Property(e => e.Nationality)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("nationality");
+            entity.Property(e => e.Number).HasColumnName("number");
+            entity.Property(e => e.Position)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("position");
+            entity.Property(e => e.UserEmail)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("userEmail");
+
+            entity.HasOne(d => d.Club).WithMany(p => p.PlayerRegistrations)
+                .HasForeignKey(d => d.ClubId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PlayerRegistration_Club");
         });
 
         modelBuilder.Entity<Role>(entity =>

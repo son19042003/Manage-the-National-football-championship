@@ -1,12 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\Projects\\Project1_layout\\Football_Management\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{9C82F493-11A7-4C69-A979-4747E79AE28B}|Football_Management\\Football_Management.csproj|d:\\projects\\project1_layout\\football_management\\football_management\\controllers\\clubscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9C82F493-11A7-4C69-A979-4747E79AE28B}|Football_Management\\Football_Management.csproj|solutionrelative:football_management\\controllers\\clubscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -14,24 +9,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ClubsController.cs",
-              "DocumentMoniker": "D:\\Projects\\Project1_layout\\Football_Management\\Football_Management\\Controllers\\ClubsController.cs",
-              "RelativeDocumentMoniker": "Football_Management\\Controllers\\ClubsController.cs",
-              "ToolTip": "D:\\Projects\\Project1_layout\\Football_Management\\Football_Management\\Controllers\\ClubsController.cs",
-              "RelativeToolTip": "Football_Management\\Controllers\\ClubsController.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAABIAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-24T14:24:10.268Z",
-              "EditorCaption": ""
             }
           ]
         }

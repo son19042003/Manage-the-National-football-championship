@@ -18,15 +18,14 @@
     </ol>
 </nav>
 
-<a class="btn btn-primary" asp-controller="Players" asp-action="Create">
-    Create <span class="mdi mdi-plus-circle-outline"></span>
-</a>
-
 <div class="card card-default">
     <div class="card-body">
-        <div style="margin-bottom: 10px; display: inline-flex">
-            <input style="margin-right: 10px" type="text" id="searchInputName" class="form-control" placeholder="Search Player" />
-            <input type="text" id="searchInputClub" class="form-control" placeholder="Search Club" />
+        <div style="margin-bottom: 10px; display: flex; align-items: center">
+            <form method="get" id="filterForm">
+                @Html.DropDownListFor(model => model.ClubId, 
+                    new SelectList(Model.Clubs, "ClubId", "ClubName", Model.ClubId), "All", 
+                    new { @class = "form-control", style = "width: 300px", onchange = "this.form.submit()" } )
+            </form>
         </div>
         @for (int i = 1; i <= Model.TotalPages; i++)
         {

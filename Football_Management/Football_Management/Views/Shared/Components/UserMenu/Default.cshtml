@@ -1,0 +1,5 @@
+﻿@model string
+
+<a asp-controller="Account" asp-action="@(Model != null ? "Profile" : "Login")" class="ticket">
+    <span>@(Model != null ? "Profile" : "Login")</span>
+</a>

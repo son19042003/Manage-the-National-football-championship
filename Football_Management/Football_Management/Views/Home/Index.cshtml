@@ -39,59 +39,108 @@
                         <div class="tab-pane fade show active schedule-item">
                             <!-- Headings -->
                             <ul class="m-0 p-0">
-                                <li class="headings">
-                                    <h4>Matchweek</h4>
-                                </li>
                                 <!-- Match -->
                                 @{
                                     DateOnly? previousDate = null;
+                                    int count = 1;
                                 }
-                                @foreach (var match in Model.NextRoundMatches)
+                                @if (Model.NextRoundMatches != null)
                                 {
-                                    <li class="schedule-details">
-                                        @if (previousDate != match.DateStart)
+                                    @foreach (var match in Model.NextRoundMatches)
+                                    {
+                                        @if (count == 1)
                                         {
-                                            <h5 style="text-align: center;">
-                                                @GetOrdinalSuffix(@match.DateStart.Day) @match.DateStart.ToString("MMMM", new System.Globalization.CultureInfo("en-US"))
-                                            </h5>
+                                            <li class="headings">
+                                                <h4>Matchweek @match.Round</h4>
+                                            </li>
+                                            count++;
                                         }
-                                        <a href="#" style="text-align: center;">
-                                            <div class="block">
-                                                <!-- home -->
-                                                <div class="speaker">
-                                                    <img src="~/Assets/images/logo/@match.LogoHome"
-                                                         alt="home-club" style="width: 40px; height: 40px">
-                                                    <span class="name">@match.HomeTeam</span>
-                                                </div>
-                                                <!-- time -->
-                                                @if (match.Status == "Full-time")
-                                                {
-                                                    <div class="time">
-                                                        <span class="time">@match.GoalsH - @match.GoalsA</span>
+                                        <li class="schedule-details">
+                                            @if (previousDate != match.DateStart)
+                                            {
+                                                <h5 style="text-align: center;">
+                                                    @GetOrdinalSuffix(@match.DateStart.Day) @match.DateStart.ToString("MMMM", new System.Globalization.CultureInfo("en-US"))
+                                                </h5>
+                                            }
+                                            @if (match.Status == "Full-time")
+                                            {
+                                                <a asp-controller="Results" asp-action="Detail" asp-route-id="@match.MatchId" style="text-align: center;">
+                                                    <div class="block">
+                                                        <!-- home -->
+                                                        <div class="speaker">
+                                                            <img src="~/Assets/images/logo/@match.LogoHome"
+                                                                 alt="home-club" style="width: 40px; height: 40px">
+                                                            <span class="name">@match.HomeTeam</span>
+                                                        </div>
+                                                        <!-- time -->
+                                                        @if (match.Status == "Full-time")
+                                                        {
+                                                            <div class="time">
+                                                                <span class="time">@match.GoalsH - @match.GoalsA</span>
+                                                            </div>
+                                                        }
+                                                        else if (match.Status == "Delayed")
+                                                        {
+                                                            <div class="time">
+                                                                <span class="time">@match.Status</span>
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="time">
+                                                                <span class="time">@match.TimeStart</span>
+                                                            </div>
+                                                        }
+                                                        <!-- away -->
+                                                        <div class="speaker">
+                                                            <span class="name">@match.AwayTeam</span>
+                                                            <img src="~/Assets/images/logo/@match.LogoAway"
+                                                                 alt="away-club" style="width: 40px; height: 40px">
+                                                        </div>
                                                     </div>
-                                                }
-                                                else if (match.Status == "Delayed")
-                                                {
-                                                    <div class="time">
-                                                        <span class="time">@match.Status</span>
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a asp-controller="Fixtures" asp-action="Detail" asp-route-id="@match.MatchId" style="text-align: center;">
+                                                    <div class="block">
+                                                        <!-- home -->
+                                                        <div class="speaker">
+                                                            <img src="~/Assets/images/logo/@match.LogoHome"
+                                                                 alt="home-club" style="width: 40px; height: 40px">
+                                                            <span class="name">@match.HomeTeam</span>
+                                                        </div>
+                                                        <!-- time -->
+                                                        @if (match.Status == "Full-time")
+                                                        {
+                                                            <div class="time">
+                                                                <span class="time">@match.GoalsH - @match.GoalsA</span>
+                                                            </div>
+                                                        }
+                                                        else if (match.Status == "Delayed")
+                                                        {
+                                                            <div class="time">
+                                                                <span class="time">@match.Status</span>
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="time">
+                                                                <span class="time">@match.TimeStart</span>
+                                                            </div>
+                                                        }
+                                                        <!-- away -->
+                                                        <div class="speaker">
+                                                            <span class="name">@match.AwayTeam</span>
+                                                            <img src="~/Assets/images/logo/@match.LogoAway"
+                                                                 alt="away-club" style="width: 40px; height: 40px">
+                                                        </div>
                                                     </div>
-                                                }
-                                                else
-                                                {
-                                                    <div class="time">
-                                                        <span class="time">@match.TimeStart</span>
-                                                    </div>
-                                                }
-                                                <!-- away -->
-                                                <div class="speaker">
-                                                    <span class="name">@match.AwayTeam</span>
-                                                    <img src="~/Assets/images/logo/@match.LogoAway"
-                                                         alt="away-club" style="width: 40px; height: 40px">
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    previousDate = match.DateStart;
+                                                </a>
+                                            }
+                                        </li>
+                                        previousDate = match.DateStart;
+                                    }
                                 }
                             </ul>
                         </div>
@@ -121,7 +170,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-8 col-10 m-auto">
                         <div class="blog-post">
                             <div class="post-thumb">
-                                <a href="news-single.html">
+                                <a asp-controller="News" asp-action="Detail" asp-route-id="@news.NewsId">
                                     <img src="~/Assets/images/news/thumbnail/@news.Thumbnail" alt="post-image" class="img-fluid">
                                 </a>
                             </div>
@@ -133,12 +182,11 @@
                                     </h4>
                                 </div>
                                 <div class="post-title">
-                                    <h2><a href="news-single.html">@news.Title</a></h2>
+                                    <h2><a asp-controller="News" asp-action="Detail" asp-route-id="@news.NewsId">@news.Title</a></h2>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 }
             </div>
         }

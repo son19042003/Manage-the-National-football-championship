@@ -1,0 +1,76 @@
+﻿@model Football_Management.ViewModels.Account.EditViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="banner-account">
+    <h1>Your Account</h1>
+</div>
+<div class="container">
+    <div class="registration-form">
+        <h2 class="text-center">Edit Your Account</h2>
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <input asp-for="@Model.AccountId" type="hidden" />
+            <div class="mb-3">
+                <label asp-for="@Model.FirstName" for="first-name" class="form-label">First Name</label>
+                <input asp-for="@Model.FirstName" type="text" class="form-control" id="first-name" placeholder="Enter first name" required>
+                <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.LastName" for="last-name" class="form-label">Last Name</label>
+                <input asp-for="@Model.LastName" type="text" class="form-control" id="last-name" placeholder="Enter last name" required>
+                <span asp-validation-for="@Model.LastName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Email" for="email" class="form-label">Email address</label>
+                <input asp-for="@Model.Email" type="email" class="form-control" id="email" placeholder="Enter email" required>
+                <span asp-validation-for="@Model.Email" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.PhoneNumber" for="phone" class="form-label">Phone Number</label>
+                <input asp-for="@Model.PhoneNumber" type="tel" class="form-control" id="phone" placeholder="Enter phone number" required>
+                <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Gender</label>
+                <div>
+                    <div class="form-check form-check-inline">
+                        <input asp-for="@Model.Gender" class="form-check-input" type="radio" name="gender" id="male" value="Male">
+                        <label asp-for="@Model.Gender" class="form-check-label" for="male">Male</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input asp-for="@Model.Gender" class="form-check-input" type="radio" name="gender" id="female" value="Female">
+                        <label asp-for="@Model.Gender" class="form-check-label" for="female">Female</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input asp-for="@Model.Gender" class="form-check-input" type="radio" name="gender" id="unspecified"
+                               value="Unspecified">
+                        <label asp-for="@Model.Gender" class="form-check-label" for="unspecified">Unspecified</label>
+                    </div>
+                </div>
+                <span asp-validation-for="@Model.Gender" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.DateOfBirth" for="dob" class="form-label">Date of Birth</label>
+                <input asp-for="@Model.DateOfBirth" type="date" class="form-control" id="dob" required>
+                <span asp-validation-for="@Model.DateOfBirth" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.AvatarFile">Avatar</label>
+                <input type="file" class="form-control" id="AvatarFile" asp-for="@Model.AvatarFile" />
+                <span asp-validation-for="@Model.AvatarFile" class="text-danger"></span>
+            </div>
+            @if (!string.IsNullOrEmpty(Model.AvatarUrl))
+            {
+                <div class="form-group">
+                    <p>Current Avatar:</p>
+                    <img src="~/Assets/images/account/@Model.AvatarUrl" alt="Avatar" width="100px" />
+                </div>
+            }
+            <button type="submit" class="btn btn-register w-100">Save</button>
+            <div class="login-link">
+                <a asp-controller="Account" asp-action="Profile" style="background-color: aqua; padding:10px; border-radius:10px">Back to your profile</a>
+            </div>
+        </form>
+    </div>
+</div>

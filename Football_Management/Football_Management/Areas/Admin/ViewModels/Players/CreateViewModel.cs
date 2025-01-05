@@ -5,6 +5,7 @@ namespace Football_Management.Areas.Admin.ViewModels.Players
 {
     public class CreateViewModel
     {
+        public int RegistrationId { get; set; }
         public int PlayerId { get; set; }
 
         [Required(ErrorMessage = "First name is required.")]

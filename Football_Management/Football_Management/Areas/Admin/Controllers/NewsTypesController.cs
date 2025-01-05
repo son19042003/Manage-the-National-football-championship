@@ -1,5 +1,6 @@
 ﻿using Football_Management.Areas.Admin.ViewModels.NewsTypes;
 using Football_Management.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
@@ -7,6 +8,7 @@ using System.Data;
 namespace Football_Management.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class NewsTypesController : Controller
     {
         private readonly FootballManagementContext _context;

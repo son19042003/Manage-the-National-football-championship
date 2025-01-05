@@ -1,12 +1,14 @@
 ﻿using Football_Management.Areas.Admin.ViewModels;
 using Football_Management.Areas.Admin.ViewModels.Clubs;
 using Football_Management.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Football_Management.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class ClubsController : Controller
     {
         private readonly FootballManagementContext _context;

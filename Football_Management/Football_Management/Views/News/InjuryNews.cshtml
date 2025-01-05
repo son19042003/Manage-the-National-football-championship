@@ -1,0 +1,109 @@
+﻿@model List<Football_Management.ViewModels.News.NewsViewModel>
+@{
+    ViewData["Title"] = "InjuryNews";
+}
+
+<!--========================    Page Title     =========================-->
+<section class="page-title bg-title overlay-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="title">
+                    <h3>Injury News</h3>
+                </div>
+                <ol class="breadcrumb justify-content-center p-0 m-0">
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item active">Injury News</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+@{
+    int currentPage = ViewBag.CurrentPage ?? 1;
+    int totalPages = ViewBag.TotalPages ?? 1;
+}
+
+@functions {
+    public static string GetOrdinalSuffix(int day)
+    {
+        if (day % 100 >= 11 && day % 100 <= 13)
+        {
+            return $"{day}th";
+        }
+        else if (day % 10 == 1)
+        {
+            return $"{day}st";
+        }
+        else if (day % 10 == 2)
+        {
+            return $"{day}nd";
+        }
+        else if (day % 10 == 3)
+        {
+            return $"{day}rd";
+        }
+        else
+        {
+            return $"{day}th";
+        }
+    }
+}
+
+<!--====================   News Posts   =====================-->
+<section class="news section">
+    <div class="container">
+        <div class="row justify-content-center mt-30">
+            @foreach (var news in Model)
+            {
+                <div class="col-lg-4 col-md-6 col-sm-8">
+                    <div class="blog-post">
+                        <div class="post-thumb">
+                            <a asp-controller="News" asp-action="Detail" asp-route-id="@news.NewsId">
+                                <img src="~/Assets/images/news/thumbnail/@news.ThumnailUrl" alt="Thumnail" class="img-fluid">
+                            </a>
+                        </div>
+                        <div class="post-content">
+                            <div class="date">
+                                <h4>
+                                    @GetOrdinalSuffix(news.DateUpdate.Day)
+                                    <span>@news.DateUpdate.ToString("MMM", new System.Globalization.CultureInfo("en-US"))</span>
+                                </h4>
+                            </div>
+                            <div class="post-title">
+                                <h2><a asp-controller="News" asp-action="Detail" asp-route-id="@news.NewsId">@news.Title</a></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="col-12 text-center">
+                <!-- Pagination -->
+                <nav class="d-flex justify-content-center">
+                    <ul class="pagination">
+                        @if (currentPage > 1)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.Action("InjuryNews", new { page = currentPage - 1 })" aria-label="prev">
+                                    <span aria-hidden="true"><i class="fa fa-angle-left"></i></span>
+                                    <span class="sr-only">prev</span>
+                                </a>
+                            </li>
+                        }
+                        <li class="page-item active"><a class="page-link">@currentPage of @totalPages</a></li>
+                        @if (currentPage < totalPages)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.Action("InjuryNews", new { page = currentPage + 1 })" aria-label="Next">
+                                    <span aria-hidden="true"><i class="fa fa-angle-right"></i></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>

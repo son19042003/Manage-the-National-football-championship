@@ -58,9 +58,7 @@
                     </ul>
                 </li>
             </ul>
-            <a asp-controller="Login" asp-action="Index" class="ticket">
-                <span>Login</span>
-            </a>
+            @await Component.InvokeAsync("UserMenu")
         </div>
     </div>
 </nav>

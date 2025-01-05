@@ -8,5 +8,6 @@
         public bool IsInClub { get; set; }
         public string? ClubName { get; set; }
         public int Index { get; set; }
+        public string? ClubId { get; set; }
     }
 }

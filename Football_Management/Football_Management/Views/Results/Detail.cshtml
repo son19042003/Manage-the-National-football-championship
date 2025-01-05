@@ -1,0 +1,137 @@
+﻿@model Football_Management.ViewModels.Results.ResultDetailViewModel
+@{
+    ViewData["Title"] = "Detail";
+}
+
+@functions {
+    public static string GetOrdinalSuffix(int day)
+    {
+        if (day % 100 >= 11 && day % 100 <= 13)
+        {
+            return $"{day}th";
+        }
+        else if (day % 10 == 1)
+        {
+            return $"{day}st";
+        }
+        else if (day % 10 == 2)
+        {
+            return $"{day}nd";
+        }
+        else if (day % 10 == 3)
+        {
+            return $"{day}rd";
+        }
+        else
+        {
+            return $"{day}th";
+        }
+    }
+}
+
+<div class="container mt-5 match-detail">
+    <h1 class="text-center">Match Result</h1>
+
+    <div class="match-details mt-4 text-center">
+        @if (Model.Score != null)
+        {
+            <div class="row align-items-center">
+                <div class="col-6 text-right">
+                    <div class="team">
+                        <a asp-controller="Clubs" asp-action="Squad" asp-route-id="@Model.Score.HomeTeamId" style="color: black">
+                            <h2 class="team-name d-inline">@Model.Score.HomeTeam</h2>
+                            <img src="~/Assets/images/logo/@Model.Score.LogoHUrl" alt="Logo" class="team-logo d-inline">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-6 text-left">
+                    <div class="team">
+                        <a asp-controller="Clubs" asp-action="Squad" asp-route-id="@Model.Score.AwayTeamId" style="color: black">
+                            <img src="~/Assets/images//logo/@Model.Score.LogoAUrl" alt="Logo" class="team-logo d-inline">
+                            <h2 class="team-name d-inline">@Model.Score.AwayTeam</h2>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="score mt-3 d-flex justify-content-center align-items-center">
+                <h2 class="score-number">@Model.Score.GoalsH <span>-</span> @Model.Score.GoalsA</h2>
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+                <h4 class="score-number">(FT)</h4>
+            </div>
+            <p class="half-time">Half Time: @Model.Score.GoalsHHalf - @Model.Score.GoalsAHalf</p>
+        }
+
+        @if (Model.PlayerScore != null && Model.Score != null)
+        {
+            <div class="row mt-3">
+                <div class="col-6">
+                    <h4>Goals</h4>
+                    <ul class="list-group">
+                        @{
+                            var homePlayers = Model.PlayerScore.Where(p => 
+                                (p.ClubId == Model.Score.HomeTeamId && p.TypeGoal != "Own Goal") ||
+                                p.ClubId == Model.Score.AwayTeamId && p.TypeGoal == "Own Goal");
+                        }
+                        @foreach (var player in homePlayers)
+                        {
+                            <li class="list-group-item">
+                                <span>@player.TimeScore -</span>
+                                <a asp-controller="Clubs" asp-action="DetailPlayer" asp-route-id="@player.PlayerId">@player.PlayerName</a>
+                                @if (player.TypeGoal == "Penalty")
+                                {
+                                    <span>(P)</span>
+                                }
+                                @if (player.TypeGoal == "Own Goal")
+                                {
+                                    <span>(O.G)</span>
+                                }
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div class="col-6">
+                    <h4>Goals</h4>
+                    <ul class="list-group">
+                        @{
+                            var awayPlayers = Model.PlayerScore.Where(p =>
+                            (p.ClubId == Model.Score.AwayTeamId && p.TypeGoal != "Own Goal") ||
+                            p.ClubId == Model.Score.HomeTeamId && p.TypeGoal == "Own Goal");
+                        }
+                        @foreach (var player in awayPlayers)
+                        {
+                            <li class="list-group-item">
+                                <span>@player.TimeScore -</span>
+                                <a asp-controller="Clubs" asp-action="DetailPlayer" asp-route-id="@player.PlayerId">@player.PlayerName</a>
+                                @if (player.TypeGoal == "Penalty")
+                                {
+                                    <span>(P)</span>
+                                }
+                                @if (player.TypeGoal == "Own Goal")
+                                {
+                                    <span>(O.G)</span>
+                                }
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        }
+
+        @if (Model.Score != null)
+        {
+            <div class="mt-4">
+                <p><strong>Date: </strong> 
+                    <span>@GetOrdinalSuffix(Model.Score.DateStart.Day) 
+                        @Model.Score.DateStart.ToString("MMM", new System.Globalization.CultureInfo("en-US")) 
+                        @Model.Score.DateStart.Year</span></p>
+                <p><strong>Kick Off: </strong> <span>@Model.Score.TimeStart</span></p>
+                <p><strong>Stadium: </strong> <span>@Model.Score.Stadium</span></p>
+            </div>
+        }
+        <div class="mt-4">
+            <a asp-controller="Results" asp-action="Index" class="btn btn-primary btn-back">Back to results</a>
+        </div>
+    </div>
+</div>
